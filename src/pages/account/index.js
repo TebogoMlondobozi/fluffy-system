@@ -28,9 +28,7 @@ export default function MyAccount() {
           <div>Order item . -----</div>
           <div>Order item . -----</div>
           <div>Order item . -----</div>
-          <div>Order item . -----</div>
-          <div>Order item . -----</div>
-          <div>Order item . -----</div>
+         
         </div>
       </div>
     </PageLayout>
