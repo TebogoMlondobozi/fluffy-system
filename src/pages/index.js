@@ -5,3 +5,4 @@ export { default as LoginPage } from "./login";
 export { default as RegisterPage } from "./register";
 export { default as CartPage } from "./cart";
 export { default as ShopPage } from "./shop";
+export { default as ProductPage } from "./product";

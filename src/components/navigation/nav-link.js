@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import classNames from "classnames";
 
-export default function NavLink({ children, to, ...props }) {
+export default function NavLink({ children, to, className, ...props }) {
   const resolved = useResolvedPath(to);
   const match = useMatch({ path: resolved.pathname, end: true });
 
@@ -12,7 +12,7 @@ export default function NavLink({ children, to, ...props }) {
       <Link
         className={classNames(
           "font-semibold",
-          match ? "text-blue-500 underline" : "text-gray-500 none"
+          match ? className || "text-blue-500 underline" : "text-gray-500 none"
         )}
         to={to}
         {...props}
@@ -26,4 +26,5 @@ export default function NavLink({ children, to, ...props }) {
 NavLink.propTypes = {
   to: PropTypes.string.isRequired,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
