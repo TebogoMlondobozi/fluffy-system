@@ -6,3 +6,4 @@ export { default as RegisterPage } from "./register";
 export { default as CartPage } from "./cart";
 export { default as ShopPage } from "./shop";
 export { default as ProductPage } from "./product";
+export { default as AdminPage } from "./admin";

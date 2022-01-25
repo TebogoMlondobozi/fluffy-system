@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { requestGET } from "../utils/network-requests";
 
 export default function useProduct({ id }) {
-  const [product, setProduct] = useState();
+  const productKey = id
+    ? [`http://localhost:3000/catalog/product/${id}`]
+    : null;
 
-  useEffect(() => {
-    if (!product) {
-      requestGET({ url: `http://localhost:3000/catalog/product/${id}` }).then(
-        (res) => setProduct(res)
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product]);
+  const { data: product } = useSWR(productKey, (url) => requestGET({ url }));
 
   return product;
 }

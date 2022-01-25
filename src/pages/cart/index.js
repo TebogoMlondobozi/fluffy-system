@@ -16,7 +16,6 @@ export default function Cart() {
               <div key={item.id} className="flex flex-cols space-x-2">
                 <span>{item.name}</span>
                 <span>{item.description}</span>
-                <span>{item.cost}</span>
               </div>
             ))}
           </div>

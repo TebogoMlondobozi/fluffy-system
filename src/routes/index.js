@@ -10,6 +10,7 @@ import {
   CartPage,
   ShopPage,
   ProductPage,
+  AdminPage,
 } from "../pages";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
 
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/admin/" element={<AdminPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -7,7 +7,7 @@ import { addCartItem } from "../../features/cart/cartSlice";
 import useCart from "../../hooks/use-cart";
 
 export default function Shop() {
-  const catalog = useProductCatalog();
+  const { catalog } = useProductCatalog();
   const { items } = useCart();
   const dispatch = useDispatch();
 
@@ -28,22 +28,21 @@ export default function Shop() {
             <ul className="grid grid-cols-3">
               {catalog.map((product) => (
                 <NavLink
-                  to={`/product/${product.id}`}
+                  to={`/product/${product._id}`}
                   key={product.id}
                   className="hover:bg-gray-200 hover:cursor-pointer"
                 >
                   <li>
-                    <img src="#" alt="not available" />
+                    <img src={product.img.data} alt="not available" />
                     <div className="flex flex-col">
                       <span>{product.name}</span>
                       <span>{product.description}</span>
-                      <span>{product.cost}</span>
                     </div>
                     <div>
                       <button
                         className="bg-blue-400 text-lg"
                         onClick={() =>
-                          !items.find(({ id }) => id === product.id)
+                          !items.find(({ _id }) => _id === product._id)
                             ? dispatch(addCartItem([...items, product]))
                             : console.log("item already added")
                         }

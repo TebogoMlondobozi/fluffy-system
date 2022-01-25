@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { requestGET } from "../utils/network-requests";
+
 export default function useProductCatalog() {
-  const [catalog, setCatalog] = useState();
+  const catalogKey = "http://localhost:3000/catalog/products";
 
-  useEffect(() => {
-    if (!catalog) {
-      requestGET({ url: "http://localhost:3000/catalog/products" }).then(
-        (res) => setCatalog(res.catalog)
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [catalog]);
+  const { data: catalog } = useSWR(catalogKey, (url) => requestGET({ url }));
 
-  return catalog || [];
+  return catalog || { catalog: [] };
 }
