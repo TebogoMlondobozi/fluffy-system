@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { requestPOST } from "../../utils/network-requests";
 
 export default function Admin() {
+  const [isUploading, setIsUploading] = useState();
+  const { handleSubmit, register } = useForm();
+
+  const submitProduct = async (formData) => {
+    try {
+      const uploaded = await requestPOST({
+        url: "http://localhost:3000/bucket/upload",
+        formData,
+      });
+      if (uploaded) {
+        console.log("---", uploaded);
+      }
+    } catch (e) {}
+  };
   return (
     <div>
       <form
+        // onSubmit={handleSubmit(submitProduct)}
         className="flex flex-col items-center"
         action="http://localhost:3000/bucket/upload"
         method="post"
