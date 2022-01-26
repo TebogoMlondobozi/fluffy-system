@@ -22,7 +22,7 @@ export default function CatalogProduct({ product }) {
             <span className="truncate">{product.description}</span>
           </div>
         </div>
-        <div className="bg-red-200 flex items-center space-x-4">
+        <div className="flex items-center space-x-4">
           <button
             className="hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
             onClick={() => dispatch(addCartItem(product))}
