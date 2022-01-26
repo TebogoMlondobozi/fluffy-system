@@ -9,7 +9,11 @@ export default function Product() {
 
   return (
     <PageLayout>
-      {product ? <div>Product informaton page</div> : <div>Loading</div>}
+      {!product ? (
+        <div>Loading product</div>
+      ) : (
+        <div>Product informaton page</div>
+      )}
     </PageLayout>
   );
 }
