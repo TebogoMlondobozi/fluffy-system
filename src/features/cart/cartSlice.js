@@ -3,12 +3,11 @@ import { requestPOST } from "../../utils/network-requests/";
 
 export const createOrder = createAsyncThunk(
   "cart/createOrder",
-  async ({ orderInfo }, { getState }) => {
-    console.log("----creating an order---", orderInfo);
+  async ({ orderInfo }, { getState, dispatch }) => {
     const createdOrder = await requestPOST({
       url: "http://localhost:3000/order/create",
       data: orderInfo,
-    });
+    }).then(() => dispatch(removeCartItems({ emptyItems: [] })));
 
     return { order: createdOrder };
   }
@@ -54,6 +53,12 @@ export const cartSlice = createSlice({
 
       state.itemsCount -= itemToRemove ? 1 : 0;
     },
+    removeCartItems: (state, action) => {
+      const { payload } = action;
+
+      state.items = payload.emptyItems;
+      state.itemsCount = payload.emptyItems.length;
+    },
     decrementItemQty: (state, action) => {
       const { payload } = action;
 
@@ -87,6 +92,7 @@ export const {
   addCartItem,
   incrementItemQty,
   removeCartItem,
+  removeCartItems,
   decrementItemQty,
 } = cartSlice.actions;
 export default cartSlice.reducer;

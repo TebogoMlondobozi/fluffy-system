@@ -16,7 +16,6 @@ export default function Cart() {
   const { items } = useCart();
   const navigate = useNavigate();
 
-  console.log("---", items);
   return (
     <PageLayout>
       <div style={{ margin: "20px auto" }}>
@@ -68,20 +67,22 @@ export default function Cart() {
               <button
                 className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
                 onClick={() =>
-                  dispatch(
-                    createOrder({
-                      orderInfo: {
-                        clientId: user._id,
-                        items: items.map((item) => ({
-                          ...item,
-                          img: undefined,
-                        })),
-                      },
-                    })
-                  )
+                  !user
+                    ? navigate(generatePath("/login", { replace: false }))
+                    : dispatch(
+                        createOrder({
+                          orderInfo: {
+                            clientId: user._id,
+                            items: items.map((item) => ({
+                              ...item,
+                              img: undefined,
+                            })),
+                          },
+                        })
+                      )
                 }
               >
-                Place Order
+                Create Order
               </button>
             </div>
           </div>

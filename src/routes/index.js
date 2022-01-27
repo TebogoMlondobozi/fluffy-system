@@ -20,14 +20,7 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="shop" element={<ShopPage />}>
-            <Route path="all" element={<ShopPage />} />
-            <Route path="shirts" element={<ShopPage />} />
-            <Route path="trousers" element={<ShopPage />} />
-            <Route path="suits" element={<ShopPage />} />
-            <Route path="coats" element={<ShopPage />} />
-            <Route path="blankets" element={<ShopPage />} />
-          </Route>
+          <Route path="shop" element={<ShopPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/shipping" element={<ShippingPage />} />
           <Route
