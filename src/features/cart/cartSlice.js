@@ -3,13 +3,19 @@ import { requestPOST } from "../../utils/network-requests/";
 
 export const createOrder = createAsyncThunk(
   "cart/createOrder",
-  async ({ orderInfo }, { getState, dispatch }) => {
+  async ({ orderInfo, navigate }, { getState, dispatch }) => {
     const createdOrder = await requestPOST({
       url: "http://localhost:3000/order/create",
       data: orderInfo,
-    }).then(() => dispatch(removeCartItems({ emptyItems: [] })));
+    }).then((order) => {
+      if (order) {
+        dispatch(removeCartItems({ emptyItems: [] }));
+        navigate();
+        return order;
+      }
+    });
 
-    return { order: createdOrder };
+    return createdOrder;
   }
 );
 
@@ -19,6 +25,7 @@ export const cartSlice = createSlice({
     itemsCount: 0,
     items: [],
     totalCost: 0,
+    order: {},
   },
   reducers: {
     addCartItem: (state, action) => {
@@ -27,7 +34,9 @@ export const cartSlice = createSlice({
         ({ _id }) => _id === payload._id
       );
 
-      state.items = !selectedProduct ? [...state.items, payload] : state.items;
+      state.items = !selectedProduct
+        ? [...state.items, { ...payload, qty: 1 }]
+        : state.items;
       state.itemsCount += !selectedProduct ? 1 : 0;
     },
     incrementItemQty: (state, action) => {
@@ -81,9 +90,9 @@ export const cartSlice = createSlice({
         state.loading = true;
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-        const { order } = action;
+        const { payload } = action;
         state.loading = false;
-        state.order = order;
+        state.order = payload;
       });
   },
 });

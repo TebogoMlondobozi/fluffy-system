@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import eaziwash_logo from "../../assets/eaziwash-logo.png";
+import eaziwash_logo from "../../assets/eazee-wash-logo.png";
 import { NavLink, SiteTopNav } from "../navigation";
 
 export default function Layout({ children }) {
   return (
     <div className="flex flex-col items-center h-screen w-full justify-between">
       <div className="w-2/3">
-        <div className="border-b-2 p-4 flex justify-between">
+        <div className="bg-white border-b-2 p-4 flex justify-between sticky top-0">
           <div>
             <div className="w-20">
               <NavLink to="/">

@@ -1,10 +1,14 @@
+import { useSelector } from "react-redux";
 import useSWR from "swr";
 import { requestGET } from "../utils/network-requests";
 
-export default function useOrder({ id }) {
-  const orderKey = id ? [`http://localhost:3000/order/${id}`] : null;
+export default function useOrder() {
+  const { order } = useSelector((state) => state.cart);
+  const orderKey = order?._id
+    ? [`http://localhost:3000/order/${order._id}`]
+    : null;
 
-  const { data: order } = useSWR(orderKey, (url) => requestGET({ url }));
+  const { data } = useSWR(orderKey, (url) => requestGET({ url }));
 
-  return order;
+  return data;
 }
