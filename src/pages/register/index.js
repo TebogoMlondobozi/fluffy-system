@@ -18,7 +18,10 @@ export default function Register() {
 
   return (
     <PageLayout>
-      <div className="flex flex-col">
+      <div
+        className="flex flex-col items-center"
+        style={{ margin: "20px auto" }}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2>Enter the following details to have account with us</h2>
