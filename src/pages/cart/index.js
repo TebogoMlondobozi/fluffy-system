@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, generatePath, useParams } from "react-router-dom";
-import { NavLink } from "../../components/navigation";
+import {
+  useNavigate,
+  generatePath,
+  useParams,
+  NavLink,
+} from "react-router-dom";
 import { PageLayout } from "../../components/structure";
 import {
   incrementItemQty,
@@ -77,10 +81,7 @@ export default function Cart() {
                     key={item._id}
                     className="flex items-center justify-between space-x-4 hover:cursor-pointer"
                   >
-                    <NavLink
-                      className="bg-gray-300"
-                      to={generatePath(`/cart/:_id`, item)}
-                    >
+                    <NavLink to={generatePath(`/cart/:_id`, item)}>
                       <div className="flex flex-col items-start">
                         <div className="w-36">
                           <img src={item.img.dataUrl} alt="not available" />
@@ -120,7 +121,7 @@ export default function Cart() {
           </div>
           <div>
             {product ? (
-              <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-4 sticky top-0">
                 <div className="hover:cursor-pointer">
                   <div>
                     <img src={product.img.dataUrl} alt="not available" />
@@ -142,7 +143,11 @@ export default function Cart() {
         <div className="rounded-lg bg-gray-300 w-full h-1/2 flex items-center justify-center">
           <div>
             <p className="font-bold">
-              Cart is empty, visit shop to add items for your new order.
+              Cart is empty,{" "}
+              <span className="text-blue-500">
+                <NavLink to="/shop">visit shop</NavLink>
+              </span>{" "}
+              to add items for your new order.
             </p>
           </div>
         </div>

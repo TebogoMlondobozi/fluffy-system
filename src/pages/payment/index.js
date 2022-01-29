@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { PageLayout } from "../../components/structure";
 import {
   createPickupAddress,
@@ -14,7 +15,7 @@ export default function Payment() {
   const { user } = useAuth();
   const order = useOrder();
   const { pickupAddress, mutate } = usePickupAddress({ userId: user?._id });
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, setValue } = useForm({
     defaultValues: pickupAddress || {},
   });
 
@@ -46,42 +47,66 @@ export default function Payment() {
     }
   };
 
+  useEffect(() => {
+    if (pickupAddress) {
+      [
+        "postal_code",
+        "province",
+        "street_name",
+        "town_city",
+        "unit_complex_number",
+      ].forEach((addressField) =>
+        setValue(addressField, pickupAddress[addressField])
+      );
+    }
+  }, [pickupAddress, setValue]);
+
+  console.log(pickupAddress);
   return (
     <PageLayout>
-      <p className="text-center font-semibold text-lg mb-10">
-        Just complete the order so one of our drivers will come to pick up your
-        laundry.
-      </p>
-
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
           <h2 className="font-bold">Order Items</h2>
 
-          <table>
-            <thead className="text-left">
-              <tr className="grid grid-cols-5 grid-flow-x gap-x-4 bg-gray-200">
-                <th>Name</th>
-                <th className="start-col-2 col-span-2">Description</th>
-                <th>Quantity</th>
-                <th>Sub total</th>
-              </tr>
-            </thead>
+          {!order ? (
+            <div className="p-4 rounded-lg bg-gray-300 w-full h-1/2 flex items-center justify-center">
+              <div>
+                <p className="font-bold">
+                  Oops, you have not placed an order yet, please{" "}
+                  <span className="text-blue-500">
+                    <NavLink to="/shop">visit shop</NavLink>
+                  </span>{" "}
+                  to add items to your cart.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <table>
+              <thead className="text-left">
+                <tr className="grid grid-cols-5 grid-flow-x gap-x-4 bg-gray-200">
+                  <th>Name</th>
+                  <th className="start-col-2 col-span-2">Description</th>
+                  <th>Quantity</th>
+                  <th>Sub total</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {(order?.items || []).map((item) => {
-                return (
-                  <tr className="grid grid-cols-5 grid-flow-x gap-x-4">
-                    <td>{item.name}</td>
-                    <td className="start-col-2 col-span-2">
-                      {item.description}
-                    </td>
-                    <td>{item.qty}</td>
-                    <td></td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+              <tbody>
+                {(order.items || []).map((item) => {
+                  return (
+                    <tr className="grid grid-cols-5 grid-flow-x gap-x-4">
+                      <td>{item.name}</td>
+                      <td className="start-col-2 col-span-2">
+                        {item.description}
+                      </td>
+                      <td>{item.qty}</td>
+                      <td></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <div className="text-right">

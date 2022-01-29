@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
@@ -69,10 +69,22 @@ export default function MyAccount() {
               </button>
             </div>
           </div>
-        ) : (
-          <p>Visit the shop for placing an order</p>
-        )}
+        ) : null}
       </div>
+
+      {!order ? (
+        <div className="rounded-lg bg-gray-300 w-full h-1/6 flex items-center justify-center">
+          <div>
+            <p className="font-bold">
+              Oops, you have not placed an order yet, please{" "}
+              <span className="text-blue-500">
+                <NavLink to="/shop">visit shop</NavLink>
+              </span>{" "}
+              to add items to your cart.
+            </p>
+          </div>
+        </div>
+      ) : null}
       <div className="flex flex-col items-center justify-center space-y-4">
         <h2 className="font-bold">Order History</h2>
       </div>
