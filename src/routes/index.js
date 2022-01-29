@@ -12,6 +12,7 @@ import {
   ProductPage,
   AdminPage,
   PaymentPage,
+  LegalPage,
 } from "../pages";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
 
@@ -46,6 +47,7 @@ export default function App() {
           </Route>
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/admin/" element={<AdminPage />} />
+          <Route path="/terms-and-conditions/" element={<LegalPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import eaziwash_logo from "../../assets/eazee-wash-logo.png";
+import netfresh_logo from "../../assets/netfresh-logo.jpeg";
+import palmik_logo from "../../assets/palmik-logo.png";
 import { NavLink, SiteTopNav } from "../navigation";
 
 export default function Layout({ children }) {
@@ -21,14 +24,16 @@ export default function Layout({ children }) {
 
         <div className="h-screen pt-10">
           {children}
-          <div className="mt-10 p-4">
-            <div className="flex flex-col items-center">
-              <h2 className="font-semibold">Our Partners</h2>
-              <div className="flex space-x-4 mb-10">
-                <div>Parnter A</div>
-                <div>Parnter B</div>
-                <div>Parnter C</div>
-                <div>Parnter D</div>
+          <div className="mt-10 p-4 border-t-2 border-dotted">
+            <div className="flex flex-col items-center p-10">
+              <h2 className="font-semibold text-lg">Our Partners</h2>
+              <div className="flex space-x-4 items-center justify-center">
+                <div className="w-36">
+                  <img src={netfresh_logo} alt="Logo not available" />
+                </div>
+                <div className="w-36">
+                  <img src={palmik_logo} alt="Logo not available" />
+                </div>
               </div>
             </div>
             <div className="flex space-x-8 justify-between">
@@ -41,8 +46,15 @@ export default function Layout({ children }) {
               </div>
 
               <div>
-                <h2 className="font-bold">Operating Times:</h2>
-                <div>Times</div>
+                <h2 className="font-bold">Pickup and Delivery Times :</h2>
+                <div>
+                  <p>
+                    Monday–Friday: 6am – 5pm <br />
+                    Saturday: 8am – 4pm
+                    <br />
+                    Sunday: Closed
+                  </p>
+                </div>
               </div>
 
               <div>
@@ -52,8 +64,10 @@ export default function Layout({ children }) {
               </div>
 
               <div>
-                <h2 className="font-bold">Comapny address</h2>
-                <div>Business address here</div>
+                <h2 className="font-bold">Legal</h2>
+                <Link to="/terms-and-conditions/" className="text-blue-400">
+                  Terms and Conditions
+                </Link>
               </div>
 
               <div>

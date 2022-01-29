@@ -18,7 +18,7 @@ export default function MyAccount() {
           </h1>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center space-y-4">
+      <div className="p-10 flex flex-col items-center justify-center space-y-4">
         <h2 className="font-bold">Order Summery</h2>
         {order ? (
           <div>
@@ -73,7 +73,7 @@ export default function MyAccount() {
       </div>
 
       {!order ? (
-        <div className="rounded-lg bg-gray-300 w-full h-1/6 flex items-center justify-center">
+        <div className="p-20 rounded-lg bg-gray-300 w-full h-1/6 flex items-center justify-center">
           <div>
             <p className="font-bold">
               Oops, you have not placed an order yet, please{" "}
@@ -85,7 +85,7 @@ export default function MyAccount() {
           </div>
         </div>
       ) : null}
-      <div className="flex flex-col items-center justify-center space-y-4">
+      <div className="p-10 flex flex-col items-center justify-center space-y-4">
         <h2 className="font-bold">Order History</h2>
       </div>
     </PageLayout>

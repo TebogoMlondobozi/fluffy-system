@@ -8,3 +8,4 @@ export { default as ShopPage } from "./shop";
 export { default as ProductPage } from "./product";
 export { default as AdminPage } from "./admin";
 export { default as PaymentPage } from "./payment";
+export { default as LegalPage } from "./legal";

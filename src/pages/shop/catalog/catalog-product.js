@@ -20,9 +20,7 @@ export default function CatalogProduct({ product }) {
         onClick={() => navigate(generatePath(`/product/:_id`, product))}
       >
         <div className="w-60">
-          {!imageIsLoading ? <Skeleton count={1} className="h-36" /> : null}
           <img
-            style={imageIsLoading ? {} : { display: "none" }}
             src={product.img.dataUrl}
             alt="not available"
             onLoad={() => setImageIsLoading(true)}

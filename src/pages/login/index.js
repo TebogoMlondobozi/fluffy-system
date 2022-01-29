@@ -20,10 +20,7 @@ export default function Login() {
 
   return (
     <PageLayout>
-      <div
-        className="flex flex-col items-center"
-        style={{ margin: "20px auto" }}
-      >
+      <div className="flex flex-col items-center p-36">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col space-y-4">
             <h2>Enter the following details to signin</h2>
