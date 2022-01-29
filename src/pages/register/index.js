@@ -77,7 +77,7 @@ export default function Register() {
               </div>
             </div>
             <div>
-              <button className="border-2 p-2 rounded bg-blue-400">
+              <button className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1">
                 Create account
               </button>
             </div>

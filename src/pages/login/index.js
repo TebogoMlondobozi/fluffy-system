@@ -48,9 +48,15 @@ export default function Login() {
                 />
               </div>
             </div>
-            <div>
-              <button className="border-2 p-2 rounded bg-blue-400">
+            <div className="flex space-x-4">
+              <button className="font-bold hover:bg-blue-200 bg-blue-400 text-white rounded-lg p-1">
                 Signin
+              </button>
+              <button
+                className="font-bold hover:bg-blue-200 rounded-lg p-1"
+                onClick={() => navigate("/register")}
+              >
+                Sign up
               </button>
             </div>
           </div>
