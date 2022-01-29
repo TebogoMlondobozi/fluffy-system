@@ -4,7 +4,7 @@ import { PageLayout } from "../../components/structure";
 export default function Home() {
   return (
     <PageLayout>
-      <div className="w-2/3 flex items-center">
+      <div className="flex items-center">
         <div className="w-full flex justify-between">
           <div>
             <h1>
