@@ -6,5 +6,5 @@ export default function useProductCatalog() {
 
   const { data: catalog } = useSWR(catalogKey, (url) => requestGET({ url }));
 
-  return catalog || { catalog: [] };
+  return catalog;
 }

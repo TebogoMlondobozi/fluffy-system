@@ -11,6 +11,7 @@ import {
   ShopPage,
   ProductPage,
   AdminPage,
+  PaymentPage,
 } from "../pages";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
 
@@ -20,7 +21,7 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="shop" element={<ShopPage />} />
+          <Route path="/shop" element={<ShopPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/shipping" element={<ShippingPage />} />
           <Route
@@ -31,6 +32,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/payment" element={<PaymentPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="cart/" element={<CartPage />}>
             <Route path=":id" element={<CartPage />} />

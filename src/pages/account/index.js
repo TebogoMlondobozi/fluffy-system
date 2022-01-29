@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 
 export default function MyAccount() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const order = useOrder();
 
@@ -19,38 +21,60 @@ export default function MyAccount() {
       <div className="flex flex-col items-center justify-center space-y-4">
         <h2 className="font-bold">Order Summery</h2>
         {order ? (
-          <table>
-            <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
-              <thead>#</thead>
-              <thead>Item name</thead>
-              <thead className="start-col-2 col-span-2">Description</thead>
-              <thead>Category</thead>
-              <thead>Quantity</thead>
-            </tr>
-            {(order.items || []).map((orderItem, index) => (
-              <tr
-                className="grid grid-cols-6 grid-flow-x gap-x-4"
-                key={orderItem._id}
-              >
-                <td>{index + 1}.</td>
-                <td>{orderItem.name}</td>
-                <td className="start-col-2 col-span-2">
-                  {orderItem.description}
-                </td>
-                <td>{orderItem.category}</td>
-                <td>{orderItem.qty}</td>
-              </tr>
-            ))}
-            <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
-              <thead className="font-bold col-span-5">Total quantity</thead>
-              <thead className="font-bold">
-                {(order.items || []).reduce((acc, item) => acc + item.qty, 0)}
+          <div>
+            <table>
+              <thead className="text-left">
+                <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
+                  <th>#</th>
+                  <th>Item name</th>
+                  <th className="start-col-2 col-span-2">Description</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                </tr>
               </thead>
-            </tr>
-          </table>
+              <tbody>
+                {(order.items || []).map((orderItem, index) => (
+                  <tr
+                    className="grid grid-cols-6 grid-flow-x gap-x-4"
+                    key={orderItem._id}
+                  >
+                    <td>{index + 1}.</td>
+                    <td>{orderItem.name}</td>
+                    <td className="start-col-2 col-span-2">
+                      {orderItem.description}
+                    </td>
+                    <td>{orderItem.category}</td>
+                    <td>{orderItem.qty}</td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+                <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
+                  <thead className="font-bold col-span-5">Total quantity</thead>
+                  <thead className="font-bold">
+                    {(order.items || []).reduce(
+                      (acc, item) => acc + item.qty,
+                      0
+                    )}
+                  </thead>
+                </tr>
+              </tfoot>
+            </table>
+            <div className="text-right pt-4">
+              <button
+                className="sticky top-0 font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+                onClick={() => navigate("/payment", { replace: false })}
+              >
+                Make payment
+              </button>
+            </div>
+          </div>
         ) : (
           <p>Visit the shop for placing an order</p>
         )}
+      </div>
+      <div className="flex flex-col items-center justify-center space-y-4">
+        <h2 className="font-bold">Order History</h2>
       </div>
     </PageLayout>
   );
