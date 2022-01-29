@@ -65,21 +65,24 @@ export default function Cart() {
 
       {items.length > 0 ? (
         <div className="grid grid-cols-2 gap-x-4">
-          <div>
+          <div className="flex flex-col space-y-2">
             <div className="flex justify-between bg-gray-200 p-4 font-bold">
               <h2>CART ITEMS</h2>
               <h2 className="font-bold">QTY(+/-)</h2>
             </div>
-            <div>
+            <ul className="flex flex-col space-y-4">
               {items.map((item) => {
                 return (
-                  <div>
+                  <li
+                    key={item._id}
+                    className="flex items-center justify-between space-x-4 hover:cursor-pointer"
+                  >
                     <NavLink
                       className="bg-gray-300"
                       to={generatePath(`/cart/:_id`, item)}
                     >
-                      <div className="flex items-center justify-between space-x-4 hover:cursor-pointer">
-                        <div className="w-28">
+                      <div className="flex flex-col items-start">
+                        <div className="w-36">
                           <img src={item.img.dataUrl} alt="not available" />
                         </div>
                         <div className="flex-1">
@@ -90,31 +93,30 @@ export default function Cart() {
                             <span>Qty: {item.qty || 0}</span>
                           </div>
                         </div>
-
-                        <div className="flex justify-end space-x-4">
-                          <button
-                            className="font-bold w-10 h-10 hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
-                            onClick={() => dispatch(incrementItemQty(item))}
-                          >
-                            +
-                          </button>
-                          <button
-                            className="font-bold w-10 h-10 hover:bg-gray-200 hover:text-black bg-gray-400 text-black rounded-lg p-1"
-                            onClick={() =>
-                              item.qty === 0
-                                ? dispatch(removeCartItem(item))
-                                : dispatch(decrementItemQty(item))
-                            }
-                          >
-                            -
-                          </button>
-                        </div>
                       </div>
                     </NavLink>
-                  </div>
+                    <div className="flex justify-end space-x-4">
+                      <button
+                        className="font-bold w-10 h-10 hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+                        onClick={() => dispatch(incrementItemQty(item))}
+                      >
+                        +
+                      </button>
+                      <button
+                        className="font-bold w-10 h-10 hover:bg-gray-200 hover:text-black bg-gray-400 text-black rounded-lg p-1"
+                        onClick={() =>
+                          item.qty === 0
+                            ? dispatch(removeCartItem(item))
+                            : dispatch(decrementItemQty(item))
+                        }
+                      >
+                        -
+                      </button>
+                    </div>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
           </div>
           <div>
             {product ? (

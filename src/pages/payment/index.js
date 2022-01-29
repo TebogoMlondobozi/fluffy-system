@@ -1,15 +1,46 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { PageLayout } from "../../components/structure";
+import {
+  createPickupAddress,
+  updatePickupAddress,
+} from "../../features/cart/cartSlice";
+import { usePickupAddress } from "../../hooks/pick-up-address";
+import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 
 export default function Payment() {
-  const { handleSubmit, register } = useForm();
+  const { user } = useAuth();
   const order = useOrder();
+  const { pickupAddress, mutate } = usePickupAddress({ userId: user?._id });
+  const { handleSubmit, register } = useForm({
+    defaultValues: pickupAddress || {},
+  });
 
-  const submitAddress = (addressInfo) => {
+  const dispatch = useDispatch();
+
+  const submitAddress = async (addressInfo) => {
     try {
-      console.log("----Address---", addressInfo);
+      if (pickupAddress?._id) {
+        // address update request
+        dispatch(
+          updatePickupAddress({
+            addressId: pickupAddress._id,
+            addressInfo,
+            mutate,
+          })
+        );
+      } else {
+        //create new address request
+        dispatch(
+          createPickupAddress({
+            userId: user._id,
+            addressInfo,
+            mutate,
+          })
+        );
+      }
     } catch (e) {
       console.log("Failed address submit/update");
     }
@@ -37,7 +68,7 @@ export default function Payment() {
             </thead>
 
             <tbody>
-              {(order.items || []).map((item) => {
+              {(order?.items || []).map((item) => {
                 return (
                   <tr className="grid grid-cols-5 grid-flow-x gap-x-4">
                     <td>{item.name}</td>
@@ -111,7 +142,7 @@ export default function Payment() {
 
             <div className="text-right mt-2">
               <button className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1">
-                Submit adress
+                {pickupAddress?._id ? "Update address" : "Add address"}
               </button>
             </div>
           </form>

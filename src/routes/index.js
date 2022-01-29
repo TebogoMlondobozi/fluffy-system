@@ -32,7 +32,14 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/payment" element={<PaymentPage />} />
+          <Route
+            path="/payment"
+            element={
+              <ProtectedRoute>
+                <PaymentPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="cart/" element={<CartPage />}>
             <Route path=":id" element={<CartPage />} />

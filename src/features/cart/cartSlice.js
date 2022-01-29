@@ -1,5 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { requestPOST } from "../../utils/network-requests/";
+import { requestPOST, requestPUT } from "../../utils/network-requests/";
+
+export const createPickupAddress = createAsyncThunk(
+  "cart/createOrder",
+  async ({ userId, addressInfo, mutate }, { getState, dispatch }) => {
+    await requestPOST({
+      url: `http://localhost:3000/account/address/${userId}`,
+      data: addressInfo,
+    }).then((newAddress) => {
+      if (newAddress) {
+        mutate();
+      }
+      return newAddress;
+    });
+  }
+);
+
+export const updatePickupAddress = createAsyncThunk(
+  "cart/createOrder",
+  async ({ addressId, addressInfo, mutate }, { getState, dispatch }) => {
+    await requestPUT({
+      url: `http://localhost:3000/account/address/${addressId}`,
+      data: addressInfo,
+    }).then((updatedAddress) => {
+      if (updatedAddress) {
+        mutate();
+        return updatedAddress;
+      }
+    });
+  }
+);
 
 export const createOrder = createAsyncThunk(
   "cart/createOrder",
