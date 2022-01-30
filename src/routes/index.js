@@ -15,6 +15,7 @@ import {
   LegalPage,
 } from "../pages";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
+import OrderProvider from "../utils/contexts-providers/order-provider";
 
 export default function App() {
   return (
@@ -29,7 +30,9 @@ export default function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <AccountPage />
+                <OrderProvider>
+                  <AccountPage />
+                </OrderProvider>
               </ProtectedRoute>
             }
           />
@@ -37,12 +40,21 @@ export default function App() {
             path="/payment"
             element={
               <ProtectedRoute>
-                <PaymentPage />
+                <OrderProvider>
+                  <PaymentPage />
+                </OrderProvider>
               </ProtectedRoute>
             }
           />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="cart/" element={<CartPage />}>
+          <Route
+            path="cart/"
+            element={
+              <OrderProvider>
+                <CartPage />
+              </OrderProvider>
+            }
+          >
             <Route path=":id" element={<CartPage />} />
           </Route>
           <Route path="/product/:id" element={<ProductPage />} />

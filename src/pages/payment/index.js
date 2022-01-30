@@ -10,10 +10,13 @@ import {
 import { usePickupAddress } from "../../hooks/pick-up-address";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
+import useOrderId from "../../hooks/use-order-id";
 
 export default function Payment() {
   const { user } = useAuth();
-  const order = useOrder();
+  const { orderId } = useOrderId();
+  const order = useOrder(orderId);
+
   const { pickupAddress, mutate } = usePickupAddress({ userId: user?._id });
   const { handleSubmit, register, setValue } = useForm({
     defaultValues: pickupAddress || {},

@@ -3,11 +3,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
+import useOrderId from "../../hooks/use-order-id";
 
 export default function MyAccount() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const order = useOrder();
+  const { orderId } = useOrderId();
+  const order = useOrder(orderId);
 
   return (
     <PageLayout>

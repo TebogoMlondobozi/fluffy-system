@@ -11,16 +11,19 @@ import {
   incrementItemQty,
   decrementItemQty,
   createOrder,
+  updateOrder,
   removeCartItem,
 } from "../../features/cart/cartSlice";
 import useAuth from "../../hooks/use-auth";
 import useCart from "../../hooks/use-cart";
+import useOrderId from "../../hooks/use-order-id";
 
 export default function Cart() {
   const { id } = useParams();
   const { user } = useAuth();
   const dispatch = useDispatch();
   const { items } = useCart();
+  const { orderId, setOrderId } = useOrderId();
   const navigate = useNavigate();
   const product = items.find((item) => item._id === id);
 
@@ -39,7 +42,7 @@ export default function Cart() {
             className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
             onClick={() => {
               if (!user) navigate(generatePath("/login", { replace: false }));
-              else {
+              if (!orderId) {
                 dispatch(
                   createOrder({
                     orderInfo: {
@@ -49,13 +52,46 @@ export default function Cart() {
                         img: undefined,
                       })),
                     },
-                    navigate: () => navigate("/profile"),
+                    onSuccess: async (order) => {
+                      try {
+                        await setOrderId(order._id, navigate("/profile"));
+                      } catch (error) {
+                        console.log(
+                          "Failed saving order to local storage",
+                          error
+                        );
+                      }
+                    },
+                  })
+                );
+              } else {
+                console.log("Update the order with", items);
+                dispatch(
+                  updateOrder({
+                    orderInfo: {
+                      clientId: user._id,
+                      orderId: orderId.orderId,
+                      items: items.map((item) => ({
+                        ...item,
+                        img: undefined,
+                      })),
+                    },
+                    onSuccess: async (order) => {
+                      try {
+                        await setOrderId(order._id, () => navigate("/profile"));
+                      } catch (error) {
+                        console.log(
+                          "Failed updating order to local storage",
+                          error
+                        );
+                      }
+                    },
                   })
                 );
               }
             }}
           >
-            Create Order
+            {orderId ? "Update Order" : "Create Order"}
           </button>
         ) : (
           <button

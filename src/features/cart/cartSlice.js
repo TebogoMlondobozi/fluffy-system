@@ -33,18 +33,34 @@ export const updatePickupAddress = createAsyncThunk(
 
 export const createOrder = createAsyncThunk(
   "cart/createOrder",
-  async ({ orderInfo, navigate }, { getState, dispatch }) => {
+  async ({ orderInfo, onSuccess }, { getState, dispatch }) => {
     const createdOrder = await requestPOST({
       url: "http://localhost:3000/order/create",
       data: orderInfo,
     }).then((order) => {
       if (order) {
+        onSuccess(order);
         dispatch(removeCartItems({ emptyItems: [] }));
-        navigate();
         return order;
       }
     });
+    return createdOrder;
+  }
+);
 
+export const updateOrder = createAsyncThunk(
+  "cart/createOrder",
+  async ({ orderInfo, onSuccess }, { getState, dispatch }) => {
+    const createdOrder = await requestPUT({
+      url: `http://localhost:3000/order/update/${orderInfo.orderId}/user/${orderInfo.clientId}`,
+      data: orderInfo.items,
+    }).then((order) => {
+      if (order) {
+        onSuccess(order);
+        dispatch(removeCartItems({ emptyItems: [] }));
+        return order;
+      }
+    });
     return createdOrder;
   }
 );
@@ -114,17 +130,7 @@ export const cartSlice = createSlice({
       );
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(createOrder.pending, (state, action) => {
-        state.loading = true;
-      })
-      .addCase(createOrder.fulfilled, (state, action) => {
-        const { payload } = action;
-        state.loading = false;
-        state.order = payload;
-      });
-  },
+  extraReducers: (builder) => {},
 });
 
 export const {
