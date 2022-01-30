@@ -32,7 +32,7 @@ export default function Register() {
                   className="border-2"
                   type="text"
                   id="firstname"
-                  {...register("firstname")}
+                  {...register("firstname", { required: true })}
                 />
               </div>
 
@@ -42,7 +42,7 @@ export default function Register() {
                   className="border-2"
                   type="text"
                   id="lastname"
-                  {...register("lastname")}
+                  {...register("lastname", { required: true })}
                 />
               </div>
 
@@ -52,7 +52,7 @@ export default function Register() {
                   className="border-2"
                   type="text"
                   id="mobile_number"
-                  {...register("mobile_number")}
+                  {...register("mobile_number", { required: true })}
                 />
               </div>
 
@@ -72,7 +72,7 @@ export default function Register() {
                   className="border-2"
                   type="password"
                   id="password"
-                  {...register("password")}
+                  {...register("password", { required: true })}
                 />
               </div>
             </div>

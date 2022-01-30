@@ -31,7 +31,7 @@ export default function Login() {
                   className="border-2"
                   type="text"
                   id="username"
-                  {...register("username")}
+                  {...register("username", { required: true })}
                 />
               </div>
 
@@ -41,7 +41,7 @@ export default function Login() {
                   className="border-2"
                   type="password"
                   id="password"
-                  {...register("password")}
+                  {...register("password", { required: true })}
                 />
               </div>
             </div>
