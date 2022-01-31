@@ -9,7 +9,7 @@ export default function MyAccount() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { orderId } = useOrderId();
-  const order = useOrder(orderId);
+  const order = useOrder({ orderId, userId: user._id });
 
   return (
     <PageLayout>
@@ -52,13 +52,13 @@ export default function MyAccount() {
               </tbody>
               <tfoot>
                 <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
-                  <thead className="font-bold col-span-5">Total quantity</thead>
-                  <thead className="font-bold">
+                  <td className="font-bold col-span-5">Total quantity</td>
+                  <td className="font-bold">
                     {(order.items || []).reduce(
                       (acc, item) => acc + item.qty,
                       0
                     )}
-                  </thead>
+                  </td>
                 </tr>
               </tfoot>
             </table>

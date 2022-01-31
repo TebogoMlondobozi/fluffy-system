@@ -58,6 +58,15 @@ export default function Admin() {
           />
         </div>
 
+        <div className="grid grid-cols-2">
+          <label htmlFor="category">Unit price:</label>
+          <input
+            className="border-2 border-red-100"
+            type="text"
+            name="unit_price"
+          />
+        </div>
+
         <div>
           <button className="bg-blue-400">Submit</button>
         </div>

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import eaziwash_logo from "../../assets/eazee-wash-logo.png";
 import netfresh_logo from "../../assets/netfresh-logo.jpeg";
-import palmik_logo from "../../assets/palmik-logo.png";
 import { NavLink, SiteTopNav } from "../navigation";
+import OrderProvider from "../../utils/contexts-providers/order-provider";
 
 export default function Layout({ children }) {
   return (
@@ -19,20 +19,19 @@ export default function Layout({ children }) {
             </div>
           </div>
 
-          <SiteTopNav />
+          <OrderProvider>
+            <SiteTopNav />
+          </OrderProvider>
         </div>
 
         <div className="h-screen pt-10">
           {children}
           <div className="mt-10 p-4 border-t-2 border-dotted">
             <div className="flex flex-col items-center p-10">
-              <h2 className="font-semibold text-lg">Our Partners</h2>
+              <h2 className="font-semibold text-lg">Our Partner(s)</h2>
               <div className="flex space-x-4 items-center justify-center">
                 <div className="w-36">
                   <img src={netfresh_logo} alt="Logo not available" />
-                </div>
-                <div className="w-36">
-                  <img src={palmik_logo} alt="Logo not available" />
                 </div>
               </div>
             </div>

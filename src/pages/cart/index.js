@@ -6,7 +6,7 @@ import {
   useParams,
   NavLink,
 } from "react-router-dom";
-import { PageLayout } from "../../components/structure";
+
 import {
   incrementItemQty,
   decrementItemQty,
@@ -16,7 +16,10 @@ import {
 } from "../../features/cart/cartSlice";
 import useAuth from "../../hooks/use-auth";
 import useCart from "../../hooks/use-cart";
+import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
+
+import { PageLayout } from "../../components/structure";
 
 export default function Cart() {
   const { id } = useParams();
@@ -24,6 +27,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const { items } = useCart();
   const { orderId, setOrderId } = useOrderId();
+  const order = useOrder({ orderId, userId: user._id });
   const navigate = useNavigate();
   const product = items.find((item) => item._id === id);
 
@@ -42,7 +46,7 @@ export default function Cart() {
             className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
             onClick={() => {
               if (!user) navigate(generatePath("/login", { replace: false }));
-              if (!orderId) {
+              if (!order) {
                 dispatch(
                   createOrder({
                     orderInfo: {
@@ -52,9 +56,9 @@ export default function Cart() {
                         img: undefined,
                       })),
                     },
-                    onSuccess: async (order) => {
+                    onSuccess: async ({ _id }) => {
                       try {
-                        await setOrderId(order._id, navigate("/profile"));
+                        await setOrderId(_id, () => navigate("/profile"));
                       } catch (error) {
                         console.log(
                           "Failed saving order to local storage",
@@ -65,20 +69,19 @@ export default function Cart() {
                   })
                 );
               } else {
-                console.log("Update the order with", items);
                 dispatch(
                   updateOrder({
                     orderInfo: {
                       clientId: user._id,
-                      orderId: orderId.orderId,
+                      orderId: orderId,
                       items: items.map((item) => ({
                         ...item,
                         img: undefined,
                       })),
                     },
-                    onSuccess: async (order) => {
+                    onSuccess: async ({ _id }) => {
                       try {
-                        await setOrderId(order._id, () => navigate("/profile"));
+                        await setOrderId(_id, () => navigate("/profile"));
                       } catch (error) {
                         console.log(
                           "Failed updating order to local storage",
@@ -91,7 +94,7 @@ export default function Cart() {
               }
             }}
           >
-            {orderId ? "Update Order" : "Create Order"}
+            {order ? "Update Order" : "Create Order"}
           </button>
         ) : (
           <button

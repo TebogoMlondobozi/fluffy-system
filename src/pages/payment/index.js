@@ -15,7 +15,7 @@ import useOrderId from "../../hooks/use-order-id";
 export default function Payment() {
   const { user } = useAuth();
   const { orderId } = useOrderId();
-  const order = useOrder(orderId);
+  const order = useOrder({ orderId, userId: user._id });
 
   const { pickupAddress, mutate } = usePickupAddress({ userId: user?._id });
   const { handleSubmit, register, setValue } = useForm({
@@ -96,7 +96,10 @@ export default function Payment() {
               <tbody>
                 {(order.items || []).map((item) => {
                   return (
-                    <tr className="grid grid-cols-5 grid-flow-x gap-x-4">
+                    <tr
+                      key={item._id}
+                      className="grid grid-cols-5 grid-flow-x gap-x-4"
+                    >
                       <td>{item.name}</td>
                       <td className="start-col-2 col-span-2">
                         {item.description}
