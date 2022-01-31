@@ -4,6 +4,8 @@ import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
+import ItemSubtotal from "../cart/item-subtotal";
+import OrderTotal from "../cart/order-total";
 
 export default function MyAccount() {
   const navigate = useNavigate();
@@ -26,18 +28,19 @@ export default function MyAccount() {
           <div>
             <table>
               <thead className="text-left">
-                <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
+                <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
                   <th>#</th>
                   <th>Item name</th>
                   <th className="start-col-2 col-span-2">Description</th>
                   <th>Category</th>
                   <th>Quantity</th>
+                  <th>Subtotal</th>
                 </tr>
               </thead>
               <tbody>
                 {(order.items || []).map((orderItem, index) => (
                   <tr
-                    className="grid grid-cols-6 grid-flow-x gap-x-4"
+                    className="grid grid-cols-7 grid-flow-x gap-x-4"
                     key={orderItem._id}
                   >
                     <td>{index + 1}.</td>
@@ -47,17 +50,17 @@ export default function MyAccount() {
                     </td>
                     <td>{orderItem.category}</td>
                     <td>{orderItem.qty}</td>
+                    <td>
+                      <ItemSubtotal item={orderItem} />
+                    </td>
                   </tr>
                 ))}
               </tbody>
               <tfoot>
-                <tr className="grid grid-cols-6 grid-flow-x gap-x-4 bg-gray-300">
-                  <td className="font-bold col-span-5">Total quantity</td>
-                  <td className="font-bold">
-                    {(order.items || []).reduce(
-                      (acc, item) => acc + item.qty,
-                      0
-                    )}
+                <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
+                  <td className="font-bold col-span-6">Order Total:</td>
+                  <td>
+                    <OrderTotal items={order.items} />
                   </td>
                 </tr>
               </tfoot>

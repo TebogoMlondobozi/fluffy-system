@@ -11,6 +11,8 @@ import { usePickupAddress } from "../../hooks/pick-up-address";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
+import ItemSubtotal from "../cart/item-subtotal";
+import OrderTotal from "../cart/order-total";
 
 export default function Payment() {
   const { user } = useAuth();
@@ -105,11 +107,21 @@ export default function Payment() {
                         {item.description}
                       </td>
                       <td>{item.qty}</td>
-                      <td></td>
+                      <td>
+                        <ItemSubtotal {...{ item }} />
+                      </td>
                     </tr>
                   );
                 })}
               </tbody>
+              <tfoot>
+                <tr className="grid grid-cols-5 grid-flow-x gap-x-4 bg-gray-300">
+                  <td className="font-bold col-span-4">Order Total:</td>
+                  <td>
+                    <OrderTotal items={order.items} />
+                  </td>
+                </tr>
+              </tfoot>
             </table>
           )}
         </div>

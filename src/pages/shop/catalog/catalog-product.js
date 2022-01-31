@@ -35,6 +35,7 @@ export default function CatalogProduct({ product }) {
             <>
               <span>{product.name}</span>
               <span className="truncate">{product.description}</span>
+              <span className="truncate">R{product?.unit_price}</span>
             </>
           )}
         </div>

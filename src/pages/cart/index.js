@@ -20,6 +20,8 @@ import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
 
 import { PageLayout } from "../../components/structure";
+import OrderTotal from "./order-total";
+import ItemSubtotal from "./item-subtotal";
 
 export default function Cart() {
   const { id } = useParams();
@@ -40,70 +42,75 @@ export default function Cart() {
 
   return (
     <PageLayout>
-      <div className="mb-4 text-right">
-        {items.length > 0 ? (
-          <button
-            className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
-            onClick={() => {
-              if (!user) navigate(generatePath("/login", { replace: false }));
-              if (!order) {
-                dispatch(
-                  createOrder({
-                    orderInfo: {
-                      clientId: user._id,
-                      items: items.map((item) => ({
-                        ...item,
-                        img: undefined,
-                      })),
-                    },
-                    onSuccess: async ({ _id }) => {
-                      try {
-                        await setOrderId(_id, () => navigate("/profile"));
-                      } catch (error) {
-                        console.log(
-                          "Failed saving order to local storage",
-                          error
-                        );
-                      }
-                    },
-                  })
-                );
-              } else {
-                dispatch(
-                  updateOrder({
-                    orderInfo: {
-                      clientId: user._id,
-                      orderId: orderId,
-                      items: items.map((item) => ({
-                        ...item,
-                        img: undefined,
-                      })),
-                    },
-                    onSuccess: async ({ _id }) => {
-                      try {
-                        await setOrderId(_id, () => navigate("/profile"));
-                      } catch (error) {
-                        console.log(
-                          "Failed updating order to local storage",
-                          error
-                        );
-                      }
-                    },
-                  })
-                );
+      <div className="flex justify-between mb-4">
+        <OrderTotal {...{ items }} />
+        <div>
+          {items.length > 0 ? (
+            <button
+              className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+              onClick={() => {
+                if (!user) navigate(generatePath("/login", { replace: false }));
+                if (!order) {
+                  dispatch(
+                    createOrder({
+                      orderInfo: {
+                        clientId: user._id,
+                        items: items.map((item) => ({
+                          ...item,
+                          img: undefined,
+                        })),
+                      },
+                      onSuccess: async ({ _id }) => {
+                        try {
+                          await setOrderId(_id, () => navigate("/profile"));
+                        } catch (error) {
+                          console.log(
+                            "Failed saving order to local storage",
+                            error
+                          );
+                        }
+                      },
+                    })
+                  );
+                } else {
+                  dispatch(
+                    updateOrder({
+                      orderInfo: {
+                        clientId: user._id,
+                        orderId: orderId,
+                        items: items.map((item) => ({
+                          ...item,
+                          img: undefined,
+                        })),
+                      },
+                      onSuccess: async ({ _id }) => {
+                        try {
+                          await setOrderId(_id, () => navigate("/profile"));
+                        } catch (error) {
+                          console.log(
+                            "Failed updating order to local storage",
+                            error
+                          );
+                        }
+                      },
+                    })
+                  );
+                }
+              }}
+            >
+              {order ? "Update Order" : "Create Order"}
+            </button>
+          ) : (
+            <button
+              className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+              onClick={() =>
+                navigate(generatePath("/shop", { replace: false }))
               }
-            }}
-          >
-            {order ? "Update Order" : "Create Order"}
-          </button>
-        ) : (
-          <button
-            className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
-            onClick={() => navigate(generatePath("/shop", { replace: false }))}
-          >
-            Visit shop
-          </button>
-        )}
+            >
+              Visit shop
+            </button>
+          )}
+        </div>
       </div>
 
       {items.length > 0 ? (
@@ -131,6 +138,7 @@ export default function Cart() {
                             <span>{item.name}</span>
                             <span className="">{item.description}</span>
                             <span>Qty: {item.qty || 0}</span>
+                            <ItemSubtotal {...{ item }} />
                           </div>
                         </div>
                       </div>
@@ -171,6 +179,7 @@ export default function Cart() {
                       <span>{product.name}</span>
                       <span>{product.description}</span>
                       <span>Qty: {product.qty || 0}</span>
+                      <ItemSubtotal item={product} />
                     </div>
                   </div>
                 </div>
