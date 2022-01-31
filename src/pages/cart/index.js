@@ -43,7 +43,7 @@ export default function Cart() {
   return (
     <PageLayout>
       <div className="flex justify-between mb-4">
-        <OrderTotal {...{ items }} />
+        <OrderTotal {...{ items }} withLabel />
         <div>
           {items.length > 0 ? (
             <button
@@ -138,7 +138,7 @@ export default function Cart() {
                             <span>{item.name}</span>
                             <span className="">{item.description}</span>
                             <span>Qty: {item.qty || 0}</span>
-                            <ItemSubtotal {...{ item }} />
+                            <ItemSubtotal {...{ item }} withLabel />
                           </div>
                         </div>
                       </div>
@@ -179,7 +179,7 @@ export default function Cart() {
                       <span>{product.name}</span>
                       <span>{product.description}</span>
                       <span>Qty: {product.qty || 0}</span>
-                      <ItemSubtotal item={product} />
+                      <ItemSubtotal item={product} withLabel />
                     </div>
                   </div>
                 </div>
