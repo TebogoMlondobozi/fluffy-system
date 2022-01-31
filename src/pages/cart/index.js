@@ -27,7 +27,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const { items } = useCart();
   const { orderId, setOrderId } = useOrderId();
-  const order = useOrder({ orderId, userId: user._id });
+  const order = useOrder({ orderId, userId: user?._id });
   const navigate = useNavigate();
   const product = items.find((item) => item._id === id);
 
