@@ -33,7 +33,7 @@ export default function MyAccount() {
                   <th>Item name</th>
                   <th className="start-col-2 col-span-2">Description</th>
                   <th>Category</th>
-                  <th>Quantity</th>
+                  <th className="text-center">Quantity</th>
                   <th>Subtotal</th>
                 </tr>
               </thead>
@@ -49,7 +49,7 @@ export default function MyAccount() {
                       {orderItem.description}
                     </td>
                     <td>{orderItem.category}</td>
-                    <td>{orderItem.qty}</td>
+                    <td className="text-center">{orderItem.qty}</td>
                     <td>
                       <ItemSubtotal item={orderItem} />
                     </td>
