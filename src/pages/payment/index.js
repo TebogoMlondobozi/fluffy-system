@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import AlertMessage from "../../components/alerts/alert-message";
 import { PageLayout } from "../../components/structure";
 import {
   createPickupAddress,
@@ -26,6 +27,8 @@ export default function Payment() {
 
   const dispatch = useDispatch();
 
+  const [alertMessage, setAlertMessage] = useState();
+
   const submitAddress = async (addressInfo) => {
     try {
       if (pickupAddress?._id) {
@@ -34,7 +37,10 @@ export default function Payment() {
           updatePickupAddress({
             addressId: pickupAddress._id,
             addressInfo,
-            mutate,
+            onSuccess: ({ message }) => {
+              setAlertMessage(message);
+              mutate();
+            },
           })
         );
       } else {
@@ -43,12 +49,19 @@ export default function Payment() {
           createPickupAddress({
             userId: user._id,
             addressInfo,
-            mutate,
+            onSuccess: ({ message }) => {
+              setAlertMessage(message);
+              mutate();
+            },
           })
         );
       }
     } catch (e) {
       console.log("Failed address submit/update");
+    } finally {
+      setTimeout(() => {
+        setAlertMessage();
+      }, 2000);
     }
   };
 
@@ -68,6 +81,7 @@ export default function Payment() {
 
   return (
     <PageLayout>
+      <AlertMessage {...{ alertMessage }} />
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
           <h2 className="font-bold">Order Items</h2>

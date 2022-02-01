@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   useNavigate,
@@ -22,6 +22,7 @@ import useOrderId from "../../hooks/use-order-id";
 import { PageLayout } from "../../components/structure";
 import OrderTotal from "./order-total";
 import ItemSubtotal from "./item-subtotal";
+import AlertMessage from "../../components/alerts/alert-message";
 
 export default function Cart() {
   const { id } = useParams();
@@ -33,6 +34,8 @@ export default function Cart() {
   const navigate = useNavigate();
   const product = items.find((item) => item._id === id);
 
+  const [alertMessage, setAlertMessage] = useState();
+
   useEffect(() => {
     if ((!id || !product) && items.length > 0) {
       navigate(generatePath(`/cart/:_id`, items[0]));
@@ -42,6 +45,7 @@ export default function Cart() {
 
   return (
     <PageLayout>
+      <AlertMessage alertMessage={alertMessage} />
       <div className="flex justify-between mb-4">
         <OrderTotal {...{ items }} withLabel />
         <div>
@@ -60,14 +64,19 @@ export default function Cart() {
                           img: undefined,
                         })),
                       },
-                      onSuccess: async ({ _id }) => {
+                      onSuccess: async ({ _id, message }) => {
                         try {
-                          await setOrderId(_id, () => navigate("/profile"));
+                          await setOrderId(_id, () => setAlertMessage(message));
                         } catch (error) {
                           console.log(
                             "Failed saving order to local storage",
                             error
                           );
+                        } finally {
+                          setTimeout(() => {
+                            setAlertMessage();
+                            navigate("/profile");
+                          }, 1000);
                         }
                       },
                     })
@@ -83,14 +92,19 @@ export default function Cart() {
                           img: undefined,
                         })),
                       },
-                      onSuccess: async ({ _id }) => {
+                      onSuccess: async ({ _id, message }) => {
                         try {
-                          await setOrderId(_id, () => navigate("/profile"));
+                          await setOrderId(_id, () => setAlertMessage(message));
                         } catch (error) {
                           console.log(
                             "Failed updating order to local storage",
                             error
                           );
+                        } finally {
+                          setTimeout(() => {
+                            setAlertMessage();
+                            navigate("/profile");
+                          }, 1000);
                         }
                       },
                     })
@@ -100,7 +114,7 @@ export default function Cart() {
             >
               {order ? "Update Order" : "Create Order"}
             </button>
-          ) : (
+          ) : !alertMessage ? (
             <button
               className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
               onClick={() =>
@@ -109,7 +123,7 @@ export default function Cart() {
             >
               Visit shop
             </button>
-          )}
+          ) : null}
         </div>
       </div>
 

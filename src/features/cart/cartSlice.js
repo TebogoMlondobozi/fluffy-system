@@ -3,31 +3,32 @@ import { requestPOST, requestPUT } from "../../utils/network-requests/";
 
 export const createPickupAddress = createAsyncThunk(
   "cart/createPickupAddress",
-  async ({ userId, addressInfo, mutate }, { getState, dispatch }) => {
-    await requestPOST({
+  async ({ userId, addressInfo, onSuccess }, { getState, dispatch }) => {
+    return await requestPOST({
       url: `http://localhost:3000/account/address/${userId}`,
       data: addressInfo,
     }).then((newAddress) => {
       if (newAddress) {
-        mutate();
+        onSuccess({ ...newAddress, message: "Address successfully saved!" });
+        return newAddress;
       }
-      return newAddress;
     });
   }
 );
 
 export const updatePickupAddress = createAsyncThunk(
   "cart/updatePickupAddress",
-  async ({ addressId, addressInfo, mutate }, { getState, dispatch }) => {
-    await requestPUT({
+  async ({ addressId, addressInfo, onSuccess }, { getState, dispatch }) => {
+    const updatedAddress = await requestPUT({
       url: `http://localhost:3000/account/address/${addressId}`,
       data: addressInfo,
     }).then((updatedAddress) => {
       if (updatedAddress) {
-        mutate();
+        onSuccess(updatedAddress);
         return updatedAddress;
       }
     });
+    return updatedAddress;
   }
 );
 
@@ -39,7 +40,7 @@ export const createOrder = createAsyncThunk(
       data: orderInfo,
     }).then((order) => {
       if (order) {
-        onSuccess(order);
+        onSuccess({ ...order, message: "Order successfully created!" });
         dispatch(removeCartItems({ emptyItems: [] }));
         return order;
       }
@@ -56,7 +57,7 @@ export const updateOrder = createAsyncThunk(
       data: orderInfo.items,
     }).then((order) => {
       if (order) {
-        onSuccess(order);
+        onSuccess({ ...order, message: "Order successfully updated!" });
         dispatch(removeCartItems({ emptyItems: [] }));
         return order;
       }
