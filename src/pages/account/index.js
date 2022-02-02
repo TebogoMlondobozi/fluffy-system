@@ -20,6 +20,7 @@ export default function MyAccount() {
           <h1 className="text-right">
             Welcome {user.firstname} {user.lastname}
           </h1>
+          <h4 className="text-right text-sm">{user.emailAddress}</h4>
         </div>
       </div>
       <div className="p-10 flex flex-col items-center justify-center space-y-4">

@@ -12,9 +12,9 @@ export default function AuthProvider({ children }) {
       value={{
         user,
         signin: async (logins, callBack) => {
-          const authedUser = await signin(logins);
-          if (authedUser) {
-            setUser({ ...authedUser, password: undefined });
+          const { success, user } = await signin(logins);
+          if (success) {
+            setUser({ ...user });
             callBack();
           }
         },

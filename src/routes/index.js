@@ -9,7 +9,7 @@ import {
   ShippingPage,
   CartPage,
   ShopPage,
-  ProductPage,
+  // ProductPage,
   AdminPage,
   PaymentPage,
   LegalPage,
@@ -57,7 +57,7 @@ export default function App() {
           >
             <Route path=":id" element={<CartPage />} />
           </Route>
-          <Route path="/product/:id" element={<ProductPage />} />
+          {/* <Route path="/product/:id" element={<ProductPage />} /> */}
           <Route path="/admin/" element={<AdminPage />} />
           <Route path="/terms-and-conditions/" element={<LegalPage />} />
         </Routes>

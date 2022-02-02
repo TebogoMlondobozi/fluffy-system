@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { useNavigate, generatePath } from "react-router-dom";
+// import { useNavigate, generatePath } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import { addCartItem, removeCartItem } from "../../../features/cart/cartSlice";
 
 export default function CatalogProduct({ product }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const [imageIsLoading, setImageIsLoading] = useState(false);
 
@@ -17,7 +17,7 @@ export default function CatalogProduct({ product }) {
     <li key={product._id} className="flex flex-col space-y-4">
       <div
         className="hover:cursor-pointer"
-        onClick={() => navigate(generatePath(`/product/:_id`, product))}
+        // onClick={() => navigate(generatePath(`/product/:_id`, product))}
       >
         <div className="w-60">
           <img
