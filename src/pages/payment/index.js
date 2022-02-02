@@ -210,6 +210,23 @@ export default function Payment() {
         <div className="flex justify-between border-2 border-dotted">
           <div className="text-center flex-1">
             <h2>Card Payment</h2>
+            <div>
+              <form
+                className="bg-red-200 flex flex-col items-center"
+                action="https://sandbox.payfast.co.za​/eng/process"
+                method="post"
+              >
+                <input type="hidden" name="merchant_id" value="10000100" />
+                <input
+                  type="hidden"
+                  name="merchant_key"
+                  value="46f0cd694581a"
+                />
+                <input type="hidden" name="amount" value="100.00" />
+                <input type="hidden" name="item_name" value="Test Product" />
+                <input type="submit" title="Pay now" />
+              </form>
+            </div>
           </div>
           <div className="text-center flex-1">
             <h2>EFT Payment</h2>

@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import AlertMessage from "../../components/alerts/alert-message";
 import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
 
 export default function Register() {
+  const [alertMessage, setAlertMessage] = useState();
   const { registerAccount } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (accountInfo) =>
-    registerAccount(accountInfo, () =>
-      navigate("/profile", {
-        replace: true,
-      })
-    );
+    registerAccount(accountInfo, (message) => {
+      if (message) {
+        setAlertMessage(message);
+        setTimeout(() => {
+          navigate("/profile", {
+            replace: true,
+          });
+        }, 2000);
+      }
+    });
 
   return (
     <PageLayout>
+      <AlertMessage alertMessage={alertMessage} />
       <div
         className="flex flex-col items-center"
         style={{ margin: "20px auto" }}

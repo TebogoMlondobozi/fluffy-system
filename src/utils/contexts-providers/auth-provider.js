@@ -22,10 +22,10 @@ export default function AuthProvider({ children }) {
           setUser();
         },
         registerAccount: async (accountInfo, callBack) => {
-          const registeredUser = await registerAccount(accountInfo);
-          if (registeredUser) {
-            setUser(registeredUser);
-            callBack();
+          const { user, message, success } = await registerAccount(accountInfo);
+          if (success) {
+            setUser(user);
+            callBack(message);
           }
         },
       }}
