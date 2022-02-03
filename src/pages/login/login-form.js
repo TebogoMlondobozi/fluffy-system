@@ -19,7 +19,7 @@ export default function LoginForm({ signin }) {
     <div className="flex flex-col items-center">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col space-y-4">
-          <h2>Enter login details to signin</h2>
+          <h2 className="text-md font-semibold">Enter your login details:</h2>
           <div className="flex flex-col spacey-3">
             <div className="flex flex-col space-y-2">
               <label htmlFor="username">Username:</label>
