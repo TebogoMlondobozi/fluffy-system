@@ -30,7 +30,7 @@ export default function Layout({ children }) {
           {children}
           <div className="mt-10 p-4 border-t-2 border-dotted">
             <div className="flex flex-col items-center p-10">
-              <h2 className="font-semibold text-lg">Our Partner(s)</h2>
+              <h2 className="font-semibold">Our Partner(s)</h2>
               <div className="flex space-x-4 items-center justify-center">
                 <div className="w-36">
                   <img src={netfresh_logo} alt="Logo not available" />
