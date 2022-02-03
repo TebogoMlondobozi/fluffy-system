@@ -85,6 +85,7 @@ export default function Layout({ children }) {
           <div className="p-4 text-center border-t-2 border-dotted">
             <p className="flex justify-center items-center space-x-2">
               <span>&copy; {new Date().getFullYear()}</span>
+              <span>by</span>
               <span>
                 <img
                   className="w-5 h-5"
