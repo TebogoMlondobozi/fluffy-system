@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import eaziwash_logo from "../../assets/eazee-wash-logo.png";
 import netfresh_logo from "../../assets/netfresh-logo.jpeg";
+import mlo_logo from "../../assets/mlo-logo.png";
+
 import { NavLink, SiteTopNav } from "../navigation";
 import OrderProvider from "../../utils/contexts-providers/order-provider";
 
@@ -79,6 +81,19 @@ export default function Layout({ children }) {
                 </p>
               </div>
             </div>
+          </div>
+          <div className="p-4 text-center border-t-2 border-dotted">
+            <p className="flex justify-center items-center space-x-2">
+              <span>&copy; {new Date().getFullYear()}</span>
+              <span>
+                <img
+                  className="w-5 h-5"
+                  src={mlo_logo}
+                  alt="logo not available"
+                />
+              </span>
+              <span>Mlo Solutions</span>
+            </p>
           </div>
         </div>
       </div>
