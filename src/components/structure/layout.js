@@ -38,7 +38,7 @@ export default function Layout({ children }) {
                 </div>
               </div>
             </div>
-            <div className="flex space-x-8 justify-between">
+            <div className="grid lg:grid-cols-5 md:grid-cols-1 gap-4">
               <div>
                 <div className="w-20">
                   <NavLink to="/">
@@ -72,7 +72,7 @@ export default function Layout({ children }) {
                 </Link>
               </div>
 
-              <div className="w-1/4">
+              <div>
                 <h2 className="font-bold">Contact US</h2>
                 <div>Contact details</div>
                 <p className="flex space-x-4">

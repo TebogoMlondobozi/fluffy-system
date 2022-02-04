@@ -18,7 +18,7 @@ export default function Shop() {
         </div>
 
         {!productCatalog ? (
-          <ul className="grid gap-4 grid-cols-3">
+          <ul className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {[
               Skeleton,
               Skeleton,
