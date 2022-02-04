@@ -1,7 +1,7 @@
 import React from "react";
+import { LoginForm } from "../../components/forms";
 import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
-import LoginForm from "../login/login-form";
 
 export default function Home() {
   const { signin, user } = useAuth();

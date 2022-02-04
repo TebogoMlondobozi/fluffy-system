@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import eaziwash_logo from "../../assets/eazee-wash-logo.png";
 import netfresh_logo from "../../assets/netfresh-logo.jpeg";
 import mlo_logo from "../../assets/mlo-logo.png";
+import payfast_logo from "../../assets/pay-fast-logo.png";
 
 import { NavLink, SiteTopNav } from "../navigation";
 import OrderProvider from "../../utils/contexts-providers/order-provider";
@@ -28,7 +29,7 @@ export default function Layout({ children }) {
 
         <div className="h-screen pt-10">
           {children}
-          <div className="mt-10 p-4 border-t-2 border-dotted">
+          <div className="mt-10 border-t-2 border-dotted">
             <div className="flex flex-col items-center p-10">
               <h2 className="font-semibold">Our Partner(s)</h2>
               <div className="flex space-x-4 items-center justify-center">
@@ -71,7 +72,7 @@ export default function Layout({ children }) {
                 </Link>
               </div>
 
-              <div>
+              <div className="w-1/4">
                 <h2 className="font-bold">Contact US</h2>
                 <div>Contact details</div>
                 <p className="flex space-x-4">
@@ -79,6 +80,9 @@ export default function Layout({ children }) {
                   <span>Facebook</span>
                   <span>Tik Talk</span>
                 </p>
+                <span>
+                  <img src={payfast_logo} alt="logo not available" />
+                </span>
               </div>
             </div>
           </div>
