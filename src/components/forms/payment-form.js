@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { config } from "../../config";
 
 export default function PaymentForm({ order }) {
-  const { payfast } = config("production");
+  const { payfast } = config(process.env.NODE_ENV);
   const { register } = useForm();
   const formRef = useRef();
   const { user } = useAuth();

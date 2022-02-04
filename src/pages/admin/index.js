@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { config } from "../../config";
 import { requestPOST } from "../../utils/network-requests";
 
 export default function Admin() {
+  const { server_url } = config(process.env.NODE_ENV);
   const [isUploading, setIsUploading] = useState();
   const { handleSubmit, register } = useForm();
 
   const submitProduct = async (formData) => {
     try {
       const uploaded = await requestPOST({
-        url: "http://localhost:3000/bucket/upload",
+        url: `${server_url}/bucket/upload`,
         formData,
       });
       if (uploaded) {
@@ -22,7 +24,7 @@ export default function Admin() {
       <form
         // onSubmit={handleSubmit(submitProduct)}
         className="flex flex-col items-center"
-        action="http://localhost:3000/bucket/upload"
+        action={`${server_url}/bucket/upload`}
         method="post"
         enctype="multipart/form-data"
       >

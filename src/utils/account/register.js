@@ -1,7 +1,9 @@
+import { config } from "../../config";
 import { requestPOST } from "../network-requests";
 
 export const register = async (acountInfo) => {
-  const url = "http://localhost:3000/account/register";
+  const { server_url } = config(process.env.NODE_ENV);
+  const url = `${server_url}/account/register`;
   try {
     return await requestPOST({
       url,

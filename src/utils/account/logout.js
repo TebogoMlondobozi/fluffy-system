@@ -1,7 +1,10 @@
+import { config } from "../../config";
 import { requestPOST } from "../network-requests";
 
 export const signOut = async (callback) => {
-  const url = "http://localhost:3000/account/logout";
+  const { server_url } = config(process.env.NODE_ENV);
+
+  const url = `${server_url}/account/logout`;
   try {
     const logoutRes = await requestPOST({
       url,

@@ -1,7 +1,10 @@
+import { config } from "../../config";
 import { requestPOST } from "../network-requests";
 
 export const signin = async (logins) => {
-  const url = "http://localhost:3000/account/login";
+  const { server_url } = config(process.env.NODE_ENV);
+
+  const url = `${server_url}/account/login`;
   try {
     return await requestPOST({
       url,

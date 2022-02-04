@@ -1,11 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { config } from "../../config";
 import { requestPOST, requestPUT } from "../../utils/network-requests/";
+
+const { server_url } = config(process.env.NODE_ENV);
 
 export const createPickupAddress = createAsyncThunk(
   "cart/createPickupAddress",
   async ({ userId, addressInfo, onSuccess }, { getState, dispatch }) => {
     return await requestPOST({
-      url: `http://localhost:3000/account/address/${userId}`,
+      url: `${server_url}/account/address/${userId}`,
       data: addressInfo,
     }).then((newAddress) => {
       if (newAddress) {
@@ -20,7 +23,7 @@ export const updatePickupAddress = createAsyncThunk(
   "cart/updatePickupAddress",
   async ({ addressId, addressInfo, onSuccess }, { getState, dispatch }) => {
     const updatedAddress = await requestPUT({
-      url: `http://localhost:3000/account/address/${addressId}`,
+      url: `${server_url}/account/address/${addressId}`,
       data: addressInfo,
     }).then((updatedAddress) => {
       if (updatedAddress) {
@@ -36,7 +39,7 @@ export const createOrder = createAsyncThunk(
   "cart/createOrder",
   async ({ orderInfo, onSuccess }, { getState, dispatch }) => {
     const createdOrder = await requestPOST({
-      url: "http://localhost:3000/order/create",
+      url: `${server_url}/order/create`,
       data: orderInfo,
     }).then((order) => {
       if (order) {
@@ -53,7 +56,7 @@ export const updateOrder = createAsyncThunk(
   "cart/createOrder",
   async ({ orderInfo, onSuccess }, { getState, dispatch }) => {
     const createdOrder = await requestPUT({
-      url: `http://localhost:3000/order/update/${orderInfo.orderId}/user/${orderInfo.clientId}`,
+      url: `${server_url}/order/update/${orderInfo.orderId}/user/${orderInfo.clientId}`,
       data: orderInfo.items,
     }).then((order) => {
       if (order) {
