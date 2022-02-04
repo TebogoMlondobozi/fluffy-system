@@ -6,7 +6,6 @@ import useAuth from "../../hooks/use-auth";
 export default function Home() {
   const { signin, user } = useAuth();
 
-  console.log("---", process.env.REACT_APP_SERVER_URL);
   return (
     <PageLayout>
       <div className="p-20 w-full flex justify-between space-x-3">
