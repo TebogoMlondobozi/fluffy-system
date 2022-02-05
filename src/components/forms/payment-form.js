@@ -32,14 +32,12 @@ export default function PaymentForm({ order }) {
             <input
               type="hidden"
               name="merchant_id"
-              // value="16482565"
               value={payfast.merchant_id}
               {...register("merchant_id")}
             />
             <input
               type="hidden"
               name="merchant_key"
-              // value="k4sdmcjkj0jq8"
               value={payfast.merchant_key}
               {...register("merchant_key")}
             />
