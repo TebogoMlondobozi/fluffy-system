@@ -44,8 +44,6 @@ export default function Admin() {
     } catch (e) {}
   };
 
-  console.log("----", productCatalog);
-
   return (
     <div>
       <form
