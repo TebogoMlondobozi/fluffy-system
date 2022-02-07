@@ -121,7 +121,7 @@ export default function PaymentForm({ order }) {
             <input
               type="hidden"
               name="email_confirmation"
-              value="1"
+              value={1}
               {...register("email_confirmation")}
             />
             <input
@@ -135,7 +135,18 @@ export default function PaymentForm({ order }) {
               name="payment_method"
               {...register("payment_method")}
             />
-
+            <input
+              type="hidden"
+              name="custom_str1"
+              value={order._id}
+              {...register("custom_str1")}
+            />
+            <input
+              type="hidden"
+              name="custom_str2"
+              value={user._id}
+              {...register("custom_str2")}
+            />
             <input
               className="hover:cursor-pointer text-white font-bold"
               type="submit"

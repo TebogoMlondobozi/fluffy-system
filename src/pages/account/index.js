@@ -61,7 +61,7 @@ export default function MyAccount() {
                 <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
                   <td className="font-bold col-span-6">Order Total:</td>
                   <td>
-                    <OrderTotal items={order.items} />
+                    <OrderTotal items={order.items || []} />
                   </td>
                 </tr>
               </tfoot>
