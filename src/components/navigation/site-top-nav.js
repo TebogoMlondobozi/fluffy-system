@@ -48,14 +48,16 @@ export default function SiteTopNav() {
             </nav>
           </p>
         ) : null}
-        <span
-          className="md:hidden"
-          onClick={() => {
-            setBlockMenu(!blockMenu);
-          }}
-        >
-          <i className="fa fa-bars"></i>
-        </span>
+        {blockMenu ? null : (
+          <span
+            className="md:hidden"
+            onClick={() => {
+              setBlockMenu(!blockMenu);
+            }}
+          >
+            <i className="fa fa-bars"></i>
+          </span>
+        )}
         {user ? (
           <button
             className="text-left w-20 rounded-lg border-b-2 hover:bg-blue-500 hover:text-white"
