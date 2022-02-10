@@ -6,4 +6,8 @@
   #nav-links {
     display: none;
   }
+  #home-content {
+    padding: 0%;
+    flex-wrap: wrap;
+  }
 }

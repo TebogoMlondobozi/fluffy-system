@@ -8,7 +8,10 @@ export default function Home() {
 
   return (
     <PageLayout>
-      <div className="w-full flex justify-between space-x-3 flex-wrap">
+      <div
+        className="lg:p-20 w-full flex justify-between space-x-3"
+        id="home-content"
+      >
         <div className="border-r-2 border-dotted pr-10">
           <h1 className="text-lg font-bold">
             WELCOME TO <span className="text-blue-400">EAZEEWASH</span>
