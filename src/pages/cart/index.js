@@ -54,7 +54,11 @@ export default function Cart() {
               className="font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
               onClick={() => {
                 if (!user) navigate(generatePath("/login", { replace: false }));
-                if (!order) {
+                if (
+                  !order ||
+                  order.orderStatus === "COMPLETED" ||
+                  order.orderStatus === "CANCELLED"
+                ) {
                   dispatch(
                     createOrder({
                       orderInfo: {
@@ -112,7 +116,7 @@ export default function Cart() {
                 }
               }}
             >
-              {order ? "Update Order" : "Create Order"}
+              {order && !order.orderStatus ? "Update Order" : "Create Order"}
             </button>
           ) : !alertMessage ? (
             <button
@@ -180,26 +184,24 @@ export default function Cart() {
               })}
             </ul>
           </div>
-          <div>
-            {product ? (
-              <div className="flex flex-col space-y-4 sticky top-0">
-                <div className="hover:cursor-pointer">
-                  <div>
-                    <img src={product.img.dataUrl} alt="not available" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold">Product Information</h3>
-                    <div className="flex flex-col">
-                      <span>{product.name}</span>
-                      <span>{product.description}</span>
-                      <span>Qty: {product.qty || 0}</span>
-                      <ItemSubtotal item={product} withLabel />
-                    </div>
+          {product ? (
+            <div className="flex flex-col space-y-4 sticky top-0">
+              <div className="hover:cursor-pointer">
+                <div>
+                  <img src={product.img.dataUrl} alt="not available" />
+                </div>
+                <div>
+                  <h3 className="font-bold">Product Information</h3>
+                  <div className="flex flex-col">
+                    <span>{product.name}</span>
+                    <span>{product.description}</span>
+                    <span>Qty: {product.qty || 0}</span>
+                    <ItemSubtotal item={product} withLabel />
                   </div>
                 </div>
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
       ) : (
         <div className="rounded-lg bg-gray-300 w-full h-1/2 flex items-center justify-center">

@@ -24,7 +24,7 @@ export default function PaymentForm({ order }) {
         </div>
         <div className="flex items-center justify-center w-full pb-5">
           <form
-            className="rounded-lg w-1/3 h-10 bg-blue-400 flex items-center justify-center space-y-1 hover:cursor-pointer"
+            className="rounded-lg h-10 bg-blue-400 flex items-center justify-center space-y-1 hover:cursor-pointer"
             ref={formRef}
             action={payfast.live_url}
             method="post"
@@ -150,7 +150,7 @@ export default function PaymentForm({ order }) {
             <input
               className="hover:cursor-pointer text-white font-bold"
               type="submit"
-              value="Checkout"
+              value="Make Payment"
             />
           </form>
         </div>

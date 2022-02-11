@@ -23,7 +23,7 @@ export default function Payment() {
   return (
     <PageLayout>
       <AlertMessage {...{ alertMessage }} />
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid lg:grid-cols-2 md:grid-col-1 gap-4 mb-4">
         <div>
           <h2 className="font-bold">Order Items</h2>
 
@@ -88,9 +88,9 @@ export default function Payment() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-4 pt-4">
+      <div className="flex flex-col space-y-4 pt-4 w-full">
         <h2 className="text-center font-semibold">Select Payment Method:</h2>
-        <div className="flex justify-between">
+        <div className="flex justify-between flex-wrap">
           <PaymentForm {...{ order }} />
 
           <EFTPayment />

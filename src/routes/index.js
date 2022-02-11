@@ -14,6 +14,8 @@ import {
   PaymentPage,
   LegalPage,
 } from "../pages";
+import PaymentCancelled from "../pages/payment/cancelled-payment";
+import PaymentSuccessful from "../pages/payment/successful-paymet";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
 import OrderProvider from "../utils/contexts-providers/order-provider";
 
@@ -42,6 +44,26 @@ export default function App() {
               <ProtectedRoute>
                 <OrderProvider>
                   <PaymentPage />
+                </OrderProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment-successful"
+            element={
+              <ProtectedRoute>
+                <OrderProvider>
+                  <PaymentSuccessful />
+                </OrderProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment-cancelled"
+            element={
+              <ProtectedRoute>
+                <OrderProvider>
+                  <PaymentCancelled />
                 </OrderProvider>
               </ProtectedRoute>
             }

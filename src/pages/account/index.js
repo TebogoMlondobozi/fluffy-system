@@ -25,7 +25,7 @@ export default function MyAccount() {
       </div>
       <div className="p-10 flex flex-col items-center justify-center space-y-4">
         <h2 className="font-bold">Order Summery</h2>
-        {order ? (
+        {order && !order.payment ? (
           <div>
             <table>
               <thead className="text-left">
@@ -71,14 +71,14 @@ export default function MyAccount() {
                 className="sticky top-0 font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
                 onClick={() => navigate("/payment", { replace: false })}
               >
-                Make payment
+                Checkout
               </button>
             </div>
           </div>
         ) : null}
       </div>
 
-      {!order ? (
+      {!order || order.orderStatus === "COMPLETED" ? (
         <div className="p-20 rounded-lg bg-gray-300 w-full h-1/6 flex items-center justify-center">
           <div>
             <p className="font-bold">
@@ -91,9 +91,6 @@ export default function MyAccount() {
           </div>
         </div>
       ) : null}
-      <div className="p-10 flex flex-col items-center justify-center space-y-4">
-        <h2 className="font-bold">Order History</h2>
-      </div>
     </PageLayout>
   );
 }

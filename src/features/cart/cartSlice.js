@@ -69,6 +69,20 @@ export const updateOrder = createAsyncThunk(
   }
 );
 
+export const recordPayment = createAsyncThunk(
+  "cart/recordPayment",
+  async ({ payment, onSuccess }, { getState, dispatch }) => {
+    await requestPOST({
+      url: `${server_url}/order/payment`,
+      data: payment,
+    }).then(({ message, status, order: paidOrder }) => {
+      if (status) {
+        onSuccess({ paidOrder, message });
+      }
+    });
+  }
+);
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
