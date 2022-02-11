@@ -12,10 +12,15 @@ export default function AuthProvider({ children }) {
       value={{
         user,
         signin: async (logins, callBack) => {
-          const { success, user } = await signin(logins);
-          if (success) {
-            setUser({ ...user });
-            callBack();
+          try {
+            const signedUser = await signin(logins);
+            const { message, user, success } = signedUser;
+            if (success) {
+              setUser({ ...user });
+            }
+            callBack({ success, message });
+          } catch (erro) {
+            callBack({ success: false, message: erro });
           }
         },
         signOut: () => {

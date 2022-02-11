@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import AlertMessage from "../alerts/alert-message";
 
 export default function LoginForm({ signin }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, handleSubmit } = useForm();
+  const [alert, setAlert] = useState({});
 
-  const onSubmit = (logins) =>
-    signin(logins, () =>
-      navigate(location.state?.from?.pathname || "/shop", {
-        replace: true,
-      })
-    );
+  const onSubmit = (logins) => {
+    try {
+      signin(logins, ({ message, success }) => {
+        setAlert({ success, message });
+        if (success)
+          setTimeout(
+            () =>
+              navigate(location.state?.from?.pathname || "/shop", {
+                replace: true,
+              }),
+            1000
+          );
+      });
+    } catch (error) {
+      setAlert({ success: false, message: error });
+    }
+  };
 
   return (
     <div className="flex flex-col items-center">
+      {alert.success ? <AlertMessage alertMessage={alert.message} /> : null}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col space-y-4">
           <h2 className="text-md font-semibold">Enter your login details:</h2>
