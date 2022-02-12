@@ -57,7 +57,7 @@ export default function PaymentSuccessful() {
         {order ? <OrderTable order={order} /> : null}
 
         <button
-          className="w-1/4 rounded-lg bg-blue-400 text-white"
+          className="rounded-lg bg-blue-400 text-white p-2"
           onClick={() => navigate("/profile", { replace: true })}
         >
           Confirm

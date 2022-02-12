@@ -43,6 +43,8 @@ export default function Cart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, items.length]);
 
+  console.log("---", order);
+
   return (
     <PageLayout>
       <AlertMessage alertMessage={alertMessage} />
