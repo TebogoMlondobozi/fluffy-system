@@ -8,8 +8,6 @@ import { recordPayment } from "../../features/cart/cartSlice";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
-import ItemSubtotal from "../cart/item-subtotal";
-import OrderTotal from "../cart/order-total";
 
 export default function PaymentSuccessful() {
   const dispatch = useDispatch();
