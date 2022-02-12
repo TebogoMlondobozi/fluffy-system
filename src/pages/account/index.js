@@ -1,11 +1,10 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import OrderTable from "../../components/orders/order-table";
 import { PageLayout } from "../../components/structure";
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
-import ItemSubtotal from "../cart/item-subtotal";
-import OrderTotal from "../cart/order-total";
 
 export default function MyAccount() {
   const navigate = useNavigate();
@@ -27,45 +26,7 @@ export default function MyAccount() {
         <h2 className="font-bold">Order Summery</h2>
         {order && !order.payment ? (
           <div>
-            <table>
-              <thead className="text-left">
-                <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
-                  <th>#</th>
-                  <th>Item name</th>
-                  <th className="start-col-2 col-span-2">Description</th>
-                  <th>Category</th>
-                  <th className="text-center">Quantity</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(order.items || []).map((orderItem, index) => (
-                  <tr
-                    className="grid grid-cols-7 grid-flow-x gap-x-4"
-                    key={orderItem._id}
-                  >
-                    <td>{index + 1}.</td>
-                    <td>{orderItem.name}</td>
-                    <td className="start-col-2 col-span-2">
-                      {orderItem.description}
-                    </td>
-                    <td>{orderItem.category}</td>
-                    <td className="text-center">{orderItem.qty}</td>
-                    <td>
-                      <ItemSubtotal item={orderItem} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-              <tfoot>
-                <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
-                  <td className="font-bold col-span-6">Order Total:</td>
-                  <td>
-                    <OrderTotal items={order.items || []} />
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+            <OrderTable order={order} />
             <div className="text-right pt-4">
               <button
                 className="sticky top-0 font-bold hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"

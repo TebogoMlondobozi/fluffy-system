@@ -4,13 +4,12 @@ import { NavLink } from "react-router-dom";
 
 import AlertMessage from "../../components/alerts/alert-message";
 import { AddressForm, PaymentForm } from "../../components/forms";
+import OrderTable from "../../components/orders/order-table";
 import { PageLayout } from "../../components/structure";
 
 import useAuth from "../../hooks/use-auth";
 import useOrder from "../../hooks/use-order";
 import useOrderId from "../../hooks/use-order-id";
-import ItemSubtotal from "../cart/item-subtotal";
-import OrderTotal from "../cart/order-total";
 import EFTPayment from "./eft-payment";
 
 export default function Payment() {
@@ -40,44 +39,7 @@ export default function Payment() {
               </div>
             </div>
           ) : (
-            <table>
-              <thead className="text-left">
-                <tr className="grid grid-cols-5 grid-flow-x gap-x-4 bg-gray-200">
-                  <th>Name</th>
-                  <th className="start-col-2 col-span-2">Description</th>
-                  <th>Quantity</th>
-                  <th>Sub total</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {(order.items || []).map((item) => {
-                  return (
-                    <tr
-                      key={item._id}
-                      className="grid grid-cols-5 grid-flow-x gap-x-4"
-                    >
-                      <td>{item.name}</td>
-                      <td className="start-col-2 col-span-2">
-                        {item.description}
-                      </td>
-                      <td>{item.qty}</td>
-                      <td>
-                        <ItemSubtotal {...{ item }} />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-              <tfoot>
-                <tr className="grid grid-cols-5 grid-flow-x gap-x-4 bg-gray-300">
-                  <td className="font-bold col-span-4">Order Total:</td>
-                  <td>
-                    <OrderTotal items={order.items} />
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+            <OrderTable order={order} />
           )}
         </div>
 

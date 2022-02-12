@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
             }
             callBack({ success, message });
           } catch (erro) {
-            callBack({ success: false, message: erro });
+            callBack({ success: false, message: erro.message });
           }
         },
         signOut: () => {

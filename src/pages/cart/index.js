@@ -185,7 +185,7 @@ export default function Cart() {
             </ul>
           </div>
           {product ? (
-            <div className="flex flex-col space-y-4 sticky top-0">
+            <div className="table-data flex flex-col space-y-4 sticky top-0">
               <div className="hover:cursor-pointer">
                 <div>
                   <img src={product.img.dataUrl} alt="not available" />

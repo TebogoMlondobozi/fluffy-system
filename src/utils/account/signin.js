@@ -11,6 +11,6 @@ export const signin = async (logins) => {
       data: logins,
     }).then((res) => res);
   } catch (e) {
-    throw new TypeError("Logins are not correct");
+    throw new TypeError("Logins are not correct.");
   }
 };

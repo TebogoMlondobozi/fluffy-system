@@ -148,7 +148,7 @@ export default function PaymentForm({ order }) {
               {...register("custom_str2")}
             />
             <input
-              className="hover:cursor-pointer text-white font-bold"
+              className="hover:cursor-pointer text-white font-bold p-2"
               type="submit"
               value="Make Payment"
             />

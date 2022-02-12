@@ -58,7 +58,7 @@ export default function PaymentSuccessful() {
         {order ? (
           <table>
             <thead className="text-left">
-              <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
+              <tr className="grid lg:grid-cols-7 lg:grid-flow-x md:grid-cols-2 gap-x-4 bg-gray-300">
                 <th>#</th>
                 <th>Item name</th>
                 <th className="start-col-2 col-span-2">Description</th>
