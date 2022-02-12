@@ -14,17 +14,19 @@ export default function MyAccount() {
 
   return (
     <PageLayout>
-      <div>
-        <div className="flex flex-col mb-4">
-          <h1 className="text-right">
-            Welcome {user.firstname} {user.lastname}
-          </h1>
-          <h4 className="text-right text-sm">{user.emailAddress}</h4>
-        </div>
+      <div className="w-full flex flex-col mb-4">
+        <h1 className="text-right">
+          Welcome {user.firstname} {user.lastname}
+        </h1>
+        <h4 className="text-right text-sm">{user.emailAddress}</h4>
       </div>
       <div className="p-10 flex flex-col items-center justify-center space-y-4">
-        <h2 className="font-bold">Order Summery</h2>
-        {order && !order.payment ? (
+        <h2 className="font-bold">
+          {order?.orderStatus === "CANCELLED"
+            ? "Cancelled order summery"
+            : "Order Summery"}
+        </h2>
+        {order && (!order.payment || order.orderStatus === "CANCELLED") ? (
           <div>
             <OrderTable order={order} />
             <div className="text-right pt-4">
@@ -40,7 +42,7 @@ export default function MyAccount() {
       </div>
 
       {!order || order.orderStatus === "COMPLETED" ? (
-        <div className="p-20 rounded-lg bg-gray-300 w-full h-1/6 flex items-center justify-center">
+        <div className="md:p-10 lg:p-20 rounded-lg bg-gray-300 w-full flex items-center justify-center">
           <div>
             <p className="font-bold">
               Oops, you have not placed an order yet, please{" "}

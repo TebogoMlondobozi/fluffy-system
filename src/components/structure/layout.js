@@ -11,25 +11,30 @@ import OrderProvider from "../../utils/contexts-providers/order-provider";
 
 export default function Layout({ children }) {
   return (
-    <div className="flex flex-col items-center h-screen w-full justify-between">
-      <div className="w-2/3">
-        <div className="bg-white border-b-2 p-4 flex justify-between sticky top-0">
-          <div>
-            <div className="w-20">
-              <NavLink to="/">
-                <img src={eaziwash_logo} alt="logo not available" />
-              </NavLink>
+    <div className="flex flex-col justify-between">
+      <div className="flex justify-center items-center bg-white w-full border-b-2 sticky top-0">
+        <div className="w-2/3">
+          <div className="bg-white p-4 flex justify-between">
+            <div>
+              <div className="w-20">
+                <NavLink to="/">
+                  <img src={eaziwash_logo} alt="logo not available" />
+                </NavLink>
+              </div>
             </div>
+
+            <OrderProvider>
+              <SiteTopNav />
+            </OrderProvider>
           </div>
-
-          <OrderProvider>
-            <SiteTopNav />
-          </OrderProvider>
         </div>
-
-        <div className="h-screen pt-10">
-          {children}
-          <div className="mt-10 border-t-2 border-dotted">
+      </div>
+      <div className="flex justify-center items-center w-full p-4">
+        <div className="w-2/3">{children}</div>
+      </div>
+      <div className="flex justify-center items-center bg-gray-400 w-full">
+        <div className="flex flex-col items-center w-2/3">
+          <div>
             <div className="flex flex-col items-center p-10">
               <h2 className="font-semibold">Our Partner(s)</h2>
               <div className="flex space-x-4 items-center justify-center">
@@ -67,7 +72,7 @@ export default function Layout({ children }) {
 
               <div>
                 <h2 className="font-bold">Legal</h2>
-                <Link to="/terms-and-conditions/" className="text-blue-400">
+                <Link to="/terms-and-conditions/" className="text-blue-500">
                   Terms and Conditions
                 </Link>
               </div>
@@ -86,7 +91,7 @@ export default function Layout({ children }) {
               </div>
             </div>
           </div>
-          <div className="p-4 text-center border-t-2 border-dotted">
+          <div className="p-4 text-center">
             <p className="flex justify-center items-center space-x-2">
               <span>&copy; {new Date().getFullYear()}</span>
               <span>by</span>

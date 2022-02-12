@@ -7,7 +7,9 @@ export default function useProductCatalog() {
 
   const catalogKey = `${server_url}/catalog/products`;
 
-  const { data: catalog } = useSWR(catalogKey, (url) => requestGET({ url }));
+  const { data: catalog, mutate } = useSWR(catalogKey, (url) =>
+    requestGET({ url })
+  );
 
-  return catalog;
+  return { catalog, mutate };
 }

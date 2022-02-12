@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AlertMessage from "../../components/alerts/alert-message";
+import OrderTable from "../../components/orders/order-table";
 import { PageLayout } from "../../components/structure";
 import { recordPayment } from "../../features/cart/cartSlice";
 import useAuth from "../../hooks/use-auth";
@@ -55,47 +56,7 @@ export default function PaymentSuccessful() {
     <PageLayout>
       <div className="flex flex-col items-center justify-center space-y-4">
         <AlertMessage alertMessage={alertMessage} />
-        {order ? (
-          <table>
-            <thead className="text-left">
-              <tr className="grid lg:grid-cols-7 lg:grid-flow-x md:grid-cols-2 gap-x-4 bg-gray-300">
-                <th>#</th>
-                <th>Item name</th>
-                <th className="start-col-2 col-span-2">Description</th>
-                <th>Category</th>
-                <th className="text-center">Quantity</th>
-                <th>Subtotal</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(order.items || []).map((orderItem, index) => (
-                <tr
-                  className="grid grid-cols-7 grid-flow-x gap-x-4"
-                  key={orderItem._id}
-                >
-                  <td>{index + 1}.</td>
-                  <td>{orderItem.name}</td>
-                  <td className="start-col-2 col-span-2">
-                    {orderItem.description}
-                  </td>
-                  <td>{orderItem.category}</td>
-                  <td className="text-center">{orderItem.qty}</td>
-                  <td>
-                    <ItemSubtotal item={orderItem} />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="grid grid-cols-7 grid-flow-x gap-x-4 bg-gray-300">
-                <td className="font-bold col-span-6">Order Total:</td>
-                <td>
-                  <OrderTotal items={order.items || []} />
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        ) : null}
+        {order ? <OrderTable order={order} /> : null}
 
         <button
           className="w-1/4 rounded-lg bg-blue-400 text-white"

@@ -22,7 +22,7 @@ export default function Payment() {
   return (
     <PageLayout>
       <AlertMessage {...{ alertMessage }} />
-      <div className="grid lg:grid-cols-2 md:grid-col-1 gap-4 mb-4">
+      <div className="w-full grid lg:grid-cols-2 md:grid-col-1 gap-4 mb-4">
         <div>
           <h2 className="font-bold">Order Items</h2>
 

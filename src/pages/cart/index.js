@@ -134,7 +134,7 @@ export default function Cart() {
       {items.length > 0 ? (
         <div className="grid grid-cols-2 gap-x-4">
           <div className="flex flex-col space-y-2">
-            <div className="flex justify-between bg-gray-200 p-4 font-bold">
+            <div className="table-data flex justify-between bg-gray-200 p-4 font-bold">
               <h2>CART ITEMS</h2>
               <h2 className="font-bold">QTY(+/-)</h2>
             </div>
@@ -204,16 +204,14 @@ export default function Cart() {
           ) : null}
         </div>
       ) : (
-        <div className="rounded-lg bg-gray-300 w-full h-1/2 flex items-center justify-center">
-          <div>
-            <p className="font-bold">
-              Cart is empty,{" "}
-              <span className="text-blue-500">
-                <NavLink to="/shop">visit shop</NavLink>
-              </span>{" "}
-              to add items for your new order.
-            </p>
-          </div>
+        <div className="lg:p-20 rounded-lg bg-gray-300 w-full flex items-center justify-center">
+          <p className="font-bold">
+            Cart is empty,{" "}
+            <span className="text-blue-500">
+              <NavLink to="/shop">visit shop</NavLink>
+            </span>{" "}
+            to add items for your order.
+          </p>
         </div>
       )}
     </PageLayout>

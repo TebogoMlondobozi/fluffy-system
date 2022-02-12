@@ -11,9 +11,9 @@ export default function Admin() {
   const [deleteMessage, setDeleteMessage] = useState();
   const { handleSubmit, register } = useForm();
 
-  const productCatalog = useProductCatalog();
+  const { catalog, mutate } = useProductCatalog();
 
-  const deletedProduct = async (id) => {
+  const deletedProduct = async ({ id, fileName }) => {
     let deletedProduct = undefined;
     try {
       const { message } = await requestDELETE({
@@ -29,6 +29,7 @@ export default function Admin() {
       setTimeout(() => {
         setDeleteMessage();
       }, 2000);
+      mutate();
     }
   };
 
@@ -105,7 +106,7 @@ export default function Admin() {
         <AlertMessage alertMessage={deleteMessage} />
 
         <ul>
-          {productCatalog?.catalog?.map((product) => (
+          {(catalog || []).map((product) => (
             <li className="grid grid-cols-4 gap-4 m-4" key={product._id}>
               <span>{product.name}</span>
               <span className="col-start-2 col-span-2">
@@ -113,7 +114,12 @@ export default function Admin() {
               </span>
               <button
                 className="rounded-lg p-2 bg-red-300"
-                onClick={() => deletedProduct(product._id)}
+                onClick={() =>
+                  deletedProduct({
+                    id: product._id,
+                    fileName: "T Shirts.jpg",
+                  })
+                }
               >
                 Delete
               </button>
