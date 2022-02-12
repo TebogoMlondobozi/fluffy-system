@@ -12,7 +12,7 @@ export default function PaymentForm({ order }) {
   const { user } = useAuth();
 
   return order ? (
-    <div className="text-center flex-1 p-10">
+    <div className="text-center flex-1 lg:p-10">
       <h2 className="pb-2">Card Payment</h2>
       <div className="flex flex-col items-center bg-gray-100 rounded-lg">
         <p className="text-left p-8">

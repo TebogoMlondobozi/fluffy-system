@@ -2,7 +2,7 @@ import React from "react";
 
 export default function EFTPayment() {
   return (
-    <div className="text-center flex-1 p-10">
+    <div className="text-center flex-1 lg:p-10">
       <h2 className="pb-2">EFT Payment</h2>
       <div className="flex flex-col items-center bg-gray-100 rounded-lg">
         <div className="p-8">
