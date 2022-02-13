@@ -5,7 +5,7 @@ import CatalogProduct from "./catalog-product";
 export default function Catalog({ catalog }) {
   return (
     <ul className="grid gap-4 lg:grid-cols-3 md:grid-cols-2">
-      {catalog.map((product) => (
+      {(catalog || []).map((product) => (
         <CatalogProduct key={product._id} product={product} />
       ))}
     </ul>

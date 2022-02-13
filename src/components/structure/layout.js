@@ -6,7 +6,7 @@ import netfresh_logo from "../../assets/netfresh-logo.jpeg";
 import mlo_logo from "../../assets/mlo-logo.png";
 import payfast_logo from "../../assets/pay-fast-logo.png";
 
-import { NavLink, SiteTopNav } from "../navigation";
+import { ExternalLink, NavLink, SiteTopNav } from "../navigation";
 import OrderProvider from "../../utils/contexts-providers/order-provider";
 
 export default function Layout({ children }) {
@@ -38,7 +38,7 @@ export default function Layout({ children }) {
             <div className="flex flex-col items-center p-10">
               <h2 className="font-semibold">Our Partner(s)</h2>
               <div className="flex space-x-4 items-center justify-center">
-                <div className="w-36">
+                <div className="rounded-lg w-36">
                   <img src={netfresh_logo} alt="Logo not available" />
                 </div>
               </div>
@@ -79,11 +79,26 @@ export default function Layout({ children }) {
 
               <div>
                 <h2 className="font-bold">Contact US</h2>
-                <div>Contact details</div>
+                <div>Tel (012) 881-0258</div>
                 <p className="flex space-x-4">
-                  <span>Twitter</span>
-                  <span>Facebook</span>
-                  <span>Tik Talk</span>
+                  <span>
+                    <ExternalLink
+                      text="Twitter"
+                      link="https://twitter.com/eazeewash"
+                    />
+                  </span>
+                  <span>
+                    <ExternalLink
+                      text="Facebook"
+                      link="https://www.facebook.com/Eazeewash-108778155055179/"
+                    />
+                  </span>
+                  <span>
+                    <ExternalLink
+                      text="Instagram"
+                      link="https://www.instagram.com/eazeewash/"
+                    />
+                  </span>
                 </p>
                 <span>
                   <img src={payfast_logo} alt="logo not available" />
@@ -94,7 +109,6 @@ export default function Layout({ children }) {
           <div className="p-4 text-center">
             <p className="flex justify-center items-center space-x-2">
               <span>&copy; {new Date().getFullYear()}</span>
-              <span>by</span>
               <span>
                 <img
                   className="w-5 h-5"
