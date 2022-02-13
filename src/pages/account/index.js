@@ -42,7 +42,7 @@ export default function MyAccount() {
       </div>
 
       {!order || order.orderStatus === "COMPLETED" ? (
-        <div className="md:p-10 lg:p-20 rounded-lg bg-gray-300 w-full flex items-center justify-center">
+        <div className="p-5 lg:p-20 rounded-lg bg-gray-300 w-full flex items-center justify-center">
           <div>
             <p className="font-bold">
               Oops, you have not placed an order yet, please{" "}

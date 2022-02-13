@@ -206,7 +206,7 @@ export default function Cart() {
           ) : null}
         </div>
       ) : (
-        <div className="lg:p-20 rounded-lg bg-gray-300 w-full flex items-center justify-center">
+        <div className="lg:p-20 p-5 rounded-lg bg-gray-300 w-full flex items-center justify-center">
           <p className="font-bold">
             Cart is empty,{" "}
             <span className="text-blue-500">
