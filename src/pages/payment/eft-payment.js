@@ -12,12 +12,18 @@ export default function EFTPayment() {
           <div className="flex flex-col mt-4">
             <h1 className="text-left font-bold">Bank details:</h1>
             <ul className="text-left list-disc pl-8">
-              <li>Bank name: </li>
-              <li>Account no: </li>
-              <li>Branch code: </li>
-              <li>Reference: client name</li>
+              <li>Bank name: Nedbank</li>
+              <li>Account type: Current account</li>
+              <li>Account no: 1201850649</li>
+              <li>Branch code: 198765</li>
+              <li>Branch name: Irene Mall</li>
+              <li>Reference: client email</li>
             </ul>
           </div>
+          <p className="text-left">
+            Please make sure you email us proof of payment to
+            pickup@eazeewash.com so we can process your order.
+          </p>
         </div>
       </div>
     </div>
