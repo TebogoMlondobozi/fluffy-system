@@ -21,8 +21,9 @@ export default function EFTPayment() {
             </ul>
           </div>
           <p className="text-left">
-            Please make sure you email us proof of payment to
-            pickup@eazeewash.com so we can process your order.
+            Please make sure you email us proof of payment to{" "}
+            <span className="font-bold">pickup@eazeewash.com</span> so we can
+            process your order.
           </p>
         </div>
       </div>
