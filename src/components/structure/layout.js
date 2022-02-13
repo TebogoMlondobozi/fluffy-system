@@ -54,14 +54,14 @@ export default function Layout({ children }) {
 
               <div>
                 <h2 className="font-bold">Pickup and Delivery Times :</h2>
-                <div>
-                  <p>
-                    Monday–Friday: 6am – 5pm <br />
-                    Saturday: 8am – 4pm
-                    <br />
-                    Sunday: Closed
-                  </p>
-                </div>
+                <p className="flex flex-col">
+                  <span>Monday–Friday:</span>
+                  <span>6am – 5pm</span>
+                  <span>Saturday:</span>
+                  <span>8am – 4pm</span>
+                  <span>Sunday:</span>
+                  <span>Closed</span>
+                </p>
               </div>
 
               <div>
