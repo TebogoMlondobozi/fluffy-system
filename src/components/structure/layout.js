@@ -12,9 +12,9 @@ import OrderProvider from "../../utils/contexts-providers/order-provider";
 export default function Layout({ children }) {
   return (
     <div className="flex flex-col justify-between">
-      <div className="bg-slate-400 flex justify-center items-center w-full sticky top-0">
+      <div className="bg-sky-600 flex justify-center items-center w-full sticky top-0">
         <div className="w-2/3">
-          <div className="p-4 flex justify-between">
+          <div className="flex justify-between">
             <div className="w-20">
               <NavLink to="/">
                 <img src={eaziwash_logo} alt="logo not available" />
