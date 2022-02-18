@@ -12,7 +12,7 @@ export default function NavLink({ children, to, className, ...props }) {
       <Link
         className={classNames(
           "font-semibold text-white",
-          match ? className || "text-blue-600 underline" : "text-white"
+          match ? className || "text-sky-900 underline" : "text-white"
         )}
         to={to}
         {...props}
