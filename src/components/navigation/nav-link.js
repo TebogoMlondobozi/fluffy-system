@@ -11,8 +11,8 @@ export default function NavLink({ children, to, className, ...props }) {
     <div>
       <Link
         className={classNames(
-          "font-semibold",
-          match ? className || "text-blue-500 underline" : "text-gray-500 none"
+          "font-semibold text-white",
+          match ? className || "text-blue-600 underline" : "text-white"
         )}
         to={to}
         {...props}

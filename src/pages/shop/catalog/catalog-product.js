@@ -22,7 +22,7 @@ export default function CatalogProduct({ product }) {
         className="hover:cursor-pointer"
         // onClick={() => navigate(generatePath(`/product/:_id`, product))}
       >
-        <div className="w-60">
+        <div className="w-60 hover:scale-125">
           <img
             src={product.img.dataUrl}
             alt="not available"

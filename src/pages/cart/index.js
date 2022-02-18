@@ -153,13 +153,13 @@ export default function Cart() {
                   >
                     <NavLink to={generatePath(`/cart/:_id`, item)}>
                       <div className="flex flex-col items-start">
-                        <div className="w-36">
+                        <div className="w-36 hover:scale-125">
                           <img src={item.img.dataUrl} alt="not available" />
                         </div>
                         <div
                           className={classNames(
                             "flex-1",
-                            item._id === id && itemMessage?.message
+                            item.name === itemMessage?.itemName
                               ? "rounded bg-green-200"
                               : ""
                           )}
@@ -175,19 +175,18 @@ export default function Cart() {
                       </div>
                     </NavLink>
                     <div className="flex justify-end space-x-4">
-                      <NavLink to={generatePath(`/cart/:_id`, item)}>
-                        <button
-                          className="font-bold w-10 h-10 hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
-                          onClick={() => {
-                            setOrderItemMessage({
-                              message: `${item.name} quantity incremented!`,
-                            });
-                            dispatch(incrementItemQty(item));
-                          }}
-                        >
-                          +
-                        </button>
-                      </NavLink>
+                      <button
+                        className="font-bold w-10 h-10 hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+                        onClick={() => {
+                          setOrderItemMessage({
+                            message: `${item.name} quantity incremented!`,
+                            itemName: item.name,
+                          });
+                          dispatch(incrementItemQty(item));
+                        }}
+                      >
+                        +
+                      </button>
                       <button
                         className="font-bold w-10 h-10 hover:bg-gray-200 hover:text-black bg-gray-400 text-black rounded-lg p-1"
                         onClick={() =>
