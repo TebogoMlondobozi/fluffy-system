@@ -19,6 +19,7 @@ import PaymentSuccessful from "../pages/payment/successful-paymet";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
 import OrderItemProvider from "../utils/contexts-providers/order-item-provider";
 import OrderProvider from "../utils/contexts-providers/order-provider";
+import NoMatchRoute from "./no-match-route";
 
 export default function App() {
   return (
@@ -99,6 +100,8 @@ export default function App() {
           {/* <Route path="/product/:id" element={<ProductPage />} /> */}
           <Route path="/admin/" element={<AdminPage />} />
           <Route path="/terms-and-conditions/" element={<LegalPage />} />
+
+          <Route path="*" element={<NoMatchRoute />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
