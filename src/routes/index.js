@@ -17,6 +17,7 @@ import {
 import PaymentCancelled from "../pages/payment/cancelled-payment";
 import PaymentSuccessful from "../pages/payment/successful-paymet";
 import AuthProvider from "../utils/contexts-providers/auth-provider";
+import OrderItemProvider from "../utils/contexts-providers/order-item-provider";
 import OrderProvider from "../utils/contexts-providers/order-provider";
 
 export default function App() {
@@ -25,7 +26,14 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
+          <Route
+            path="/shop"
+            element={
+              <OrderItemProvider>
+                <ShopPage />
+              </OrderItemProvider>
+            }
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/shipping" element={<ShippingPage />} />
           <Route
@@ -73,11 +81,20 @@ export default function App() {
             path="cart/"
             element={
               <OrderProvider>
-                <CartPage />
+                <OrderItemProvider>
+                  <CartPage />
+                </OrderItemProvider>
               </OrderProvider>
             }
           >
-            <Route path=":id" element={<CartPage />} />
+            <Route
+              path=":id"
+              element={
+                <OrderItemProvider>
+                  <CartPage />
+                </OrderItemProvider>
+              }
+            />
           </Route>
           {/* <Route path="/product/:id" element={<ProductPage />} /> */}
           <Route path="/admin/" element={<AdminPage />} />

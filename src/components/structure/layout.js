@@ -126,5 +126,6 @@ export default function Layout({ children }) {
 }
 
 Layout.propTypes = {
+  alertMessage: PropTypes.string,
   children: PropTypes.node,
 };

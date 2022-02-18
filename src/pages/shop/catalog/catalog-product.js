@@ -7,11 +7,14 @@ import "react-loading-skeleton/dist/skeleton.css";
 import PropTypes from "prop-types";
 
 import { addCartItem, removeCartItem } from "../../../features/cart/cartSlice";
+import useOrderItem from "../../../hooks/use-order-item";
+import AlertMessage from "../../../components/alerts/alert-message";
 
 export default function CatalogProduct({ product }) {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
   const [imageIsLoading, setImageIsLoading] = useState(false);
+  const { itemMessage, setOrderItemMessage } = useOrderItem();
 
   return (
     <li key={product._id} className="flex flex-col space-y-4">
@@ -40,20 +43,39 @@ export default function CatalogProduct({ product }) {
           )}
         </div>
       </div>
-      <div className="flex items-center space-x-4">
-        <button
-          className="hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
-          onClick={() => dispatch(addCartItem(product))}
-        >
-          Add Item
-        </button>
-        <button
-          className="hover:bg-gray-200 hover:text-white bg-gray-400 text-black rounded-lg p-1"
-          onClick={() => dispatch(removeCartItem(product))}
-        >
-          Remove Item
-        </button>
-      </div>
+      {itemMessage && product.name === itemMessage?.itemName ? (
+        <div className="flex items-center space-x-4">
+          <AlertMessage alertMessage={itemMessage?.message} />
+        </div>
+      ) : (
+        <div className="flex items-center space-x-4">
+          <button
+            className="hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+            onClick={() => {
+              setOrderItemMessage({
+                message: `${product.name} added to cart!`,
+                itemName: product.name,
+                success: true,
+              });
+              dispatch(addCartItem(product));
+            }}
+          >
+            Add Item
+          </button>
+          <button
+            className="hover:bg-gray-200 hover:text-white bg-gray-400 text-black rounded-lg p-1"
+            onClick={() => {
+              setOrderItemMessage({
+                message: `${product.name} removed from cart!`,
+                success: true,
+              });
+              dispatch(removeCartItem(product));
+            }}
+          >
+            Remove Item
+          </button>
+        </div>
+      )}
     </li>
   );
 }

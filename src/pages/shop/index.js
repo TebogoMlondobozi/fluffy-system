@@ -3,15 +3,20 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { PageLayout } from "../../components/structure";
+import useOrderItem from "../../hooks/use-order-item";
 import useProductCatalog from "../../hooks/use-product-catalog";
 
 import Catalog from "./catalog";
 
 export default function Shop() {
   const { catalog } = useProductCatalog();
+  const { setOrderItemMessage } = useOrderItem();
 
   return (
     <PageLayout>
+      {(() => {
+        setTimeout(() => setOrderItemMessage(), 1000);
+      })()}
       <div className="flex flex-col items-center py-8">
         <h1>DRY CLEANING &amp; LAUNDRY SERVICES</h1>
       </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import classNames from "classnames";
 import {
   useNavigate,
   generatePath,
@@ -23,6 +24,7 @@ import { PageLayout } from "../../components/structure";
 import OrderTotal from "./order-total";
 import ItemSubtotal from "./item-subtotal";
 import AlertMessage from "../../components/alerts/alert-message";
+import useOrderItem from "../../hooks/use-order-item";
 
 export default function Cart() {
   const { id } = useParams();
@@ -35,6 +37,7 @@ export default function Cart() {
   const product = items.find((item) => item._id === id);
 
   const [alertMessage, setAlertMessage] = useState();
+  const { itemMessage, setOrderItemMessage } = useOrderItem();
 
   useEffect(() => {
     if ((!id || !product) && items.length > 0) {
@@ -45,6 +48,9 @@ export default function Cart() {
 
   return (
     <PageLayout>
+      {(() => {
+        setTimeout(() => setOrderItemMessage(), 1000);
+      })()}
       <AlertMessage alertMessage={alertMessage} />
       <div className="flex justify-between mb-4">
         <OrderTotal {...{ items }} withLabel />
@@ -150,7 +156,14 @@ export default function Cart() {
                         <div className="w-36">
                           <img src={item.img.dataUrl} alt="not available" />
                         </div>
-                        <div className="flex-1">
+                        <div
+                          className={classNames(
+                            "flex-1",
+                            item._id === id && itemMessage?.message
+                              ? "rounded bg-green-200"
+                              : ""
+                          )}
+                        >
                           <div className="flex flex-col">
                             <h3 className="font-bold">Product Information</h3>
                             <span>{item.name}</span>
@@ -162,12 +175,19 @@ export default function Cart() {
                       </div>
                     </NavLink>
                     <div className="flex justify-end space-x-4">
-                      <button
-                        className="font-bold w-10 h-10 hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
-                        onClick={() => dispatch(incrementItemQty(item))}
-                      >
-                        +
-                      </button>
+                      <NavLink to={generatePath(`/cart/:_id`, item)}>
+                        <button
+                          className="font-bold w-10 h-10 hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+                          onClick={() => {
+                            setOrderItemMessage({
+                              message: `${item.name} quantity incremented!`,
+                            });
+                            dispatch(incrementItemQty(item));
+                          }}
+                        >
+                          +
+                        </button>
+                      </NavLink>
                       <button
                         className="font-bold w-10 h-10 hover:bg-gray-200 hover:text-black bg-gray-400 text-black rounded-lg p-1"
                         onClick={() =>
