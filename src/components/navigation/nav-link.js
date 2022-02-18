@@ -11,7 +11,7 @@ export default function NavLink({ children, to, className, ...props }) {
     <div>
       <Link
         className={classNames(
-          "font-semibold text-white",
+          "p-1 hover:opacity-50 font-semibold text-white",
           match ? className || "text-sky-900" : "text-white"
         )}
         to={to}
