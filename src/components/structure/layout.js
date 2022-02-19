@@ -8,8 +8,11 @@ import payfast_logo from "../../assets/pay-fast-logo.png";
 
 import { ExternalLink, NavLink, SiteTopNav } from "../navigation";
 import OrderProvider from "../../utils/contexts-providers/order-provider";
+import { config } from "../../config";
 
 export default function Layout({ children }) {
+  const { eazeewash_tel } = config(process.env.NODE_ENV);
+
   return (
     <div className="flex flex-col justify-between">
       <div className="bg-sky-400 flex justify-center items-center w-full sticky top-0">
@@ -77,7 +80,7 @@ export default function Layout({ children }) {
 
               <div>
                 <h2 className="font-bold">Contact US</h2>
-                <div>Tel (012) 881-0258</div>
+                <div>Tel {eazeewash_tel}</div>
                 <p className="flex space-x-4">
                   <span>
                     <ExternalLink
