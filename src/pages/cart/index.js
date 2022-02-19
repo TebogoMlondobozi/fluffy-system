@@ -160,7 +160,11 @@ export default function Cart() {
                           className={classNames(
                             "flex-1",
                             item.name === itemMessage?.itemName
-                              ? "rounded bg-green-200"
+                              ? itemMessage?.incrQty
+                                ? "rounded-lg bg-green-200"
+                                : itemMessage?.decrQTY
+                                ? "rounded-lg bg-red-200"
+                                : ""
                               : ""
                           )}
                         >
@@ -181,6 +185,7 @@ export default function Cart() {
                           setOrderItemMessage({
                             message: `${item.name} quantity incremented!`,
                             itemName: item.name,
+                            incrQty: true,
                           });
                           dispatch(incrementItemQty(item));
                         }}
@@ -189,11 +194,18 @@ export default function Cart() {
                       </button>
                       <button
                         className="font-bold w-10 h-10 hover:bg-red-200 hover:text-white border-2 border-gray-300 rounded-lg p-1"
-                        onClick={() =>
-                          item.qty === 0
-                            ? dispatch(removeCartItem(item))
-                            : dispatch(decrementItemQty(item))
-                        }
+                        onClick={() => {
+                          if (item.qty === 1) {
+                            dispatch(removeCartItem(item));
+                          } else {
+                            dispatch(decrementItemQty(item));
+                          }
+                          setOrderItemMessage({
+                            message: `${item.name} quantity incremented!`,
+                            itemName: item.name,
+                            decrQTY: true,
+                          });
+                        }}
                       >
                         -
                       </button>
