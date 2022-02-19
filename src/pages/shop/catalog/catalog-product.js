@@ -6,7 +6,12 @@ import "react-loading-skeleton/dist/skeleton.css";
 // import { useNavigate, generatePath } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import { addCartItem, removeCartItem } from "../../../features/cart/cartSlice";
+import {
+  addCartItem,
+  decrementItemQty,
+  incrementItemQty,
+  removeCartItem,
+} from "../../../features/cart/cartSlice";
 import useOrderItem from "../../../hooks/use-order-item";
 import AlertMessage from "../../../components/alerts/alert-message";
 import useCart from "../../../hooks/use-cart";
@@ -17,8 +22,7 @@ export default function CatalogProduct({ product }) {
   const [imageIsLoading, setImageIsLoading] = useState(false);
   const { itemMessage, setOrderItemMessage } = useOrderItem();
   const { items } = useCart();
-
-  console.log(items);
+  const itemAlreadyAdded = items.find((item) => item._id === product._id);
 
   return (
     <li key={product._id} className="flex flex-col space-y-4">
@@ -56,12 +60,16 @@ export default function CatalogProduct({ product }) {
           <button
             className="w-20 hover:bg-blue-200 hover:text-white border-2 border-blue-300 text-blue-200 rounded-lg p-1"
             onClick={() => {
+              itemAlreadyAdded
+                ? dispatch(incrementItemQty(product))
+                : dispatch(addCartItem(product));
               setOrderItemMessage({
-                message: `${product.name} added to cart!`,
+                message: itemAlreadyAdded
+                  ? `${product.name} quantity incremented!`
+                  : `${product.name} added to cart!`,
                 itemName: product.name,
                 success: true,
               });
-              dispatch(addCartItem(product));
             }}
           >
             <span className="text-lg font-bold">+</span>
@@ -71,11 +79,17 @@ export default function CatalogProduct({ product }) {
               className="w-20 hover:bg-red-200 hover:text-white border-2 border-red-300 text-red-200 rounded-lg p-1"
               onClick={() => {
                 setOrderItemMessage({
-                  message: `${product.name} removed from cart!`,
+                  message:
+                    itemAlreadyAdded.qty === 1
+                      ? `${product.name} removed from cart!`
+                      : `${product.name} quantity decremented`,
                   itemName: product.name,
                   success: true,
                 });
-                dispatch(removeCartItem(product));
+
+                itemAlreadyAdded.qty === 1
+                  ? dispatch(removeCartItem(product))
+                  : dispatch(decrementItemQty(product));
               }}
             >
               <span className="text-lg font-bold">-</span>
