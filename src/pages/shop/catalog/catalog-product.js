@@ -9,12 +9,16 @@ import PropTypes from "prop-types";
 import { addCartItem, removeCartItem } from "../../../features/cart/cartSlice";
 import useOrderItem from "../../../hooks/use-order-item";
 import AlertMessage from "../../../components/alerts/alert-message";
+import useCart from "../../../hooks/use-cart";
 
 export default function CatalogProduct({ product }) {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
   const [imageIsLoading, setImageIsLoading] = useState(false);
   const { itemMessage, setOrderItemMessage } = useOrderItem();
+  const { items } = useCart();
+
+  console.log(items);
 
   return (
     <li key={product._id} className="flex flex-col space-y-4">
@@ -50,7 +54,7 @@ export default function CatalogProduct({ product }) {
       ) : (
         <div className="flex items-center space-x-4">
           <button
-            className="hover:bg-blue-200 hover:text-black bg-blue-400 text-white rounded-lg p-1"
+            className="w-20 hover:bg-blue-200 hover:text-white border-2 border-blue-300 text-blue-200 rounded-lg p-1"
             onClick={() => {
               setOrderItemMessage({
                 message: `${product.name} added to cart!`,
@@ -60,20 +64,23 @@ export default function CatalogProduct({ product }) {
               dispatch(addCartItem(product));
             }}
           >
-            Add Item
+            <span className="text-lg font-bold">+</span>
           </button>
-          <button
-            className="hover:bg-gray-200 hover:text-white bg-gray-400 text-black rounded-lg p-1"
-            onClick={() => {
-              setOrderItemMessage({
-                message: `${product.name} removed from cart!`,
-                success: true,
-              });
-              dispatch(removeCartItem(product));
-            }}
-          >
-            Remove Item
-          </button>
+          {items.find((item) => item._id === product._id) ? (
+            <button
+              className="w-20 hover:bg-red-200 hover:text-white border-2 border-red-300 text-red-200 rounded-lg p-1"
+              onClick={() => {
+                setOrderItemMessage({
+                  message: `${product.name} removed from cart!`,
+                  itemName: product.name,
+                  success: true,
+                });
+                dispatch(removeCartItem(product));
+              }}
+            >
+              <span className="text-lg font-bold">-</span>
+            </button>
+          ) : null}
         </div>
       )}
     </li>

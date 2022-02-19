@@ -188,7 +188,7 @@ export default function Cart() {
                         +
                       </button>
                       <button
-                        className="font-bold w-10 h-10 hover:bg-gray-200 hover:text-black bg-gray-400 text-black rounded-lg p-1"
+                        className="font-bold w-10 h-10 hover:bg-red-200 hover:text-white border-2 border-gray-300 rounded-lg p-1"
                         onClick={() =>
                           item.qty === 0
                             ? dispatch(removeCartItem(item))
