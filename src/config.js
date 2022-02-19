@@ -31,6 +31,6 @@ export const config = (env) => ({
       : process.env.REACT_APP_SERVER_URL_DEV,
   eazeewash_tel:
     env === "production"
-      ? process.env.REACT_APP_EAZEEWASH_TEL_LIVE
+      ? process.env.REACT_APP_EAZEEWASH_TEL
       : process.env.REACT_APP_EAZEEWASH_TEL_DEV,
 });
