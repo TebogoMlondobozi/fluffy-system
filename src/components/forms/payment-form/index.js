@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
-import useAuth from "../../hooks/use-auth";
 import { useForm } from "react-hook-form";
-import { config } from "../../config";
+import { config } from "../../../config";
+import useAuth from "../../../hooks/use-auth";
 
 export default function PaymentForm({ order }) {
   const { payfast } = config(process.env.NODE_ENV);

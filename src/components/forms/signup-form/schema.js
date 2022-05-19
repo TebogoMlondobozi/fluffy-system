@@ -9,6 +9,6 @@ export const signupFormSchema = yup
       .string()
       .email("Email is invalid.")
       .required("Email is required."),
-    password: yup.string().required("Password is required"),
+    password: yup.string().required("Password is required."),
   })
   .required();

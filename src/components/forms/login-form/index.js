@@ -2,18 +2,15 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import AlertMessage from "../../alerts/alert-message";
 import { loginFormSchema } from "./schema";
+import FormInput from "../input-field";
 
 export default function LoginForm({ signin }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const formMethods = useForm({
     resolver: yupResolver(loginFormSchema),
   });
   const [alert, setAlert] = useState({});
@@ -35,57 +32,45 @@ export default function LoginForm({ signin }) {
   return (
     <div className="flex flex-col items-center">
       <AlertMessage alertMessage={alert.message} isError={!alert.success} />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col space-y-4">
-          <h2 className="text-md font-semibold">Enter your login details:</h2>
-          <div className="flex flex-col spacey-3">
-            <div className="flex flex-col space-y-2">
-              <label htmlFor="username">Username:</label>
-              <>
-                {errors?.username?.message && (
-                  <p className="text-sm text-red-500">
-                    {errors.username.message}
-                  </p>
-                )}
-                <input
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+          <div className="flex flex-col space-y-4">
+            <h2 className="text-md font-semibold">Enter your login details:</h2>
+            <div className="flex flex-col spacey-3">
+              <div className="flex flex-col space-y-2">
+                <FormInput
+                  label="Username:"
+                  fieldname="username"
                   className="border-2"
                   type="text"
                   id="username"
-                  {...register("username")}
                 />
-              </>
-            </div>
+              </div>
 
-            <div className="flex flex-col space-y-2">
-              <label htmlFor="password">Password</label>
-              <>
-                {errors?.password?.message && (
-                  <p className="text-sm text-red-500">
-                    {errors.password.message}
-                  </p>
-                )}
-                <input
+              <div className="flex flex-col space-y-2">
+                <FormInput
+                  label="Password:"
+                  fieldname="password"
                   className="border-2"
-                  type="password"
+                  type="text"
                   id="password"
-                  {...register("password")}
                 />
-              </>
+              </div>
+            </div>
+            <div className="flex space-x-4">
+              <button className="font-bold hover:bg-blue-200 bg-blue-400 text-white rounded-lg p-1">
+                Signin
+              </button>
+              <button
+                className="font-bold hover:bg-blue-200 rounded-lg p-1"
+                onClick={() => navigate("/register")}
+              >
+                Sign up
+              </button>
             </div>
           </div>
-          <div className="flex space-x-4">
-            <button className="font-bold hover:bg-blue-200 bg-blue-400 text-white rounded-lg p-1">
-              Signin
-            </button>
-            <button
-              className="font-bold hover:bg-blue-200 rounded-lg p-1"
-              onClick={() => navigate("/register")}
-            >
-              Sign up
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </FormProvider>
     </div>
   );
 }
