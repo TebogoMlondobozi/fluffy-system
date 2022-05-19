@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useLocation, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import AlertMessage from "../alerts/alert-message";
+import AlertMessage from "../../alerts/alert-message";
+import { loginFormSchema } from "./schema";
 
 export default function LoginForm({ signin }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginFormSchema),
+  });
   const [alert, setAlert] = useState({});
 
   const onSubmit = async (logins) => {
@@ -33,22 +41,36 @@ export default function LoginForm({ signin }) {
           <div className="flex flex-col spacey-3">
             <div className="flex flex-col space-y-2">
               <label htmlFor="username">Username:</label>
-              <input
-                className="border-2"
-                type="text"
-                id="username"
-                {...register("username", { required: true })}
-              />
+              <>
+                {errors?.username?.message && (
+                  <p className="text-sm text-red-500">
+                    {errors.username.message}
+                  </p>
+                )}
+                <input
+                  className="border-2"
+                  type="text"
+                  id="username"
+                  {...register("username")}
+                />
+              </>
             </div>
 
             <div className="flex flex-col space-y-2">
               <label htmlFor="password">Password</label>
-              <input
-                className="border-2"
-                type="password"
-                id="password"
-                {...register("password", { required: true })}
-              />
+              <>
+                {errors?.password?.message && (
+                  <p className="text-sm text-red-500">
+                    {errors.password.message}
+                  </p>
+                )}
+                <input
+                  className="border-2"
+                  type="password"
+                  id="password"
+                  {...register("password")}
+                />
+              </>
             </div>
           </div>
           <div className="flex space-x-4">
