@@ -13,14 +13,16 @@ import { addressFormSchema } from "./schema";
 import FormInput from "../input-field";
 
 export default function AddressForm({ callback }) {
-  const { user } = useAuth();
-  const dispatch = useDispatch();
   const formMethods = useForm({
     resolver: yupResolver(addressFormSchema),
   });
+
+  const { user } = useAuth();
+  const dispatch = useDispatch();
+
   const { pickupAddress, mutate } = usePickupAddress({ userId: user?._id });
 
-  const submitAddress = async (addressInfo) => {
+  const submitAddress = (addressInfo) => {
     try {
       if (pickupAddress?._id) {
         // address update request
@@ -75,10 +77,10 @@ export default function AddressForm({ callback }) {
         <div className="flex flex-col space-y-2 items-end">
           <FormInput
             label="Street address:"
-            fieldname="street_address"
+            fieldname="street_name"
             className="border-2 border-gray-300"
             type="text"
-            id="street_address"
+            id="street_name"
           />
         </div>
 

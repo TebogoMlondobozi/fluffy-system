@@ -6,5 +6,6 @@ export const addressFormSchema = yup
     town_city: yup.string().required("Town city is required."),
     province: yup.string().required("Province is required."),
     postal_code: yup.string().required("Postal code is required."),
+    unit_complex_number: yup.string(),
   })
   .required();

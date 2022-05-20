@@ -8,11 +8,13 @@ import { loginFormSchema } from "./schema";
 import FormInput from "../input-field";
 
 export default function LoginForm({ signin }) {
-  const navigate = useNavigate();
-  const location = useLocation();
   const formMethods = useForm({
     resolver: yupResolver(loginFormSchema),
   });
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [alert, setAlert] = useState({});
 
   const onSubmit = async (logins) => {
