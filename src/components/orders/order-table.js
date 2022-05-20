@@ -31,6 +31,14 @@ export default function OrderTable({ order }) {
         ))}
       </tbody>
       <tfoot>
+        <tr className="text-left">
+          <td className="font-bold">Delivery fee:</td>
+          <td></td>
+          <td className="table-data"></td>
+          <td className="table-data"></td>
+          <td className="table-data"></td>
+          <td>R40</td>
+        </tr>
         <tr className="text-left bg-gray-300">
           <td className="font-bold">Order Total:</td>
           <td></td>

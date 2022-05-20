@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import eaziwash_logo from "../../assets/eazee-wash-logo.png";
-import netfresh_logo from "../../assets/netfresh-logo.jpeg";
+import eaziwash_logo from "../../assets/eazee-wash-logo-2.png";
+import netfresh_logo from "../../assets/neat-and-fresh-logo.PNG";
 import mlo_logo from "../../assets/mlo-logo.png";
 import payfast_logo from "../../assets/pay-fast-logo.png";
 

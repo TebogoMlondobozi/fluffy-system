@@ -88,11 +88,13 @@ export default function PaymentForm({ order }) {
             <input
               type="hidden"
               name="amount"
-              value={order.items.reduce(
-                (acc, { qty, unit_price }) =>
-                  parseFloat(unit_price) * parseInt(qty) + acc,
-                0
-              )}
+              value={
+                order.items.reduce(
+                  (acc, { qty, unit_price }) =>
+                    parseFloat(unit_price) * parseInt(qty) + acc,
+                  0
+                ) + 40
+              }
               {...register("amount")}
             />
             <input
