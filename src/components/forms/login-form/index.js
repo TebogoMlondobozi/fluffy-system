@@ -54,7 +54,7 @@ export default function LoginForm({ signin }) {
                   label="Password:"
                   fieldname="password"
                   className="border-2"
-                  type="text"
+                  type="password"
                   id="password"
                 />
               </div>
