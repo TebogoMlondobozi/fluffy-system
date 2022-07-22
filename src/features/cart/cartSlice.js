@@ -6,72 +6,65 @@ const { server_url } = config(process.env.NODE_ENV);
 
 export const createPickupAddress = createAsyncThunk(
   "cart/createPickupAddress",
-  async ({ userId, addressInfo, onSuccess }, { getState, dispatch }) => {
-    return await requestPOST({
+  async ({ userId, addressInfo, onSuccess }, { _, _ }) => {
+    const newAddress = await requestPOST({
       url: `${server_url}/account/address/${userId}`,
       data: addressInfo,
-    }).then((newAddress) => {
-      if (newAddress) {
-        onSuccess({ ...newAddress, message: "Address successfully saved!" });
-        return newAddress;
-      }
     });
+    if (newAddress) {
+      onSuccess({ ...newAddress, message: "Address successfully saved!" });
+      return newAddress;
+    }
   }
 );
 
 export const updatePickupAddress = createAsyncThunk(
   "cart/updatePickupAddress",
-  async ({ addressId, addressInfo, onSuccess }, { getState, dispatch }) => {
+  async ({ addressId, addressInfo, onSuccess }, { _, _ }) => {
     const updatedAddress = await requestPUT({
       url: `${server_url}/account/address/${addressId}`,
       data: addressInfo,
-    }).then((updatedAddress) => {
-      if (updatedAddress) {
-        onSuccess(updatedAddress);
-        return updatedAddress;
-      }
     });
-    return updatedAddress;
+    if (updatedAddress) {
+      onSuccess(updatedAddress);
+      return updatedAddress;
+    }
   }
 );
 
 export const createOrder = createAsyncThunk(
   "cart/createOrder",
-  async ({ orderInfo, onSuccess }, { getState, dispatch }) => {
-    const createdOrder = await requestPOST({
+  async ({ orderInfo, onSuccess }, { _, dispatch }) => {
+    const order = await requestPOST({
       url: `${server_url}/order/create`,
       data: orderInfo,
-    }).then((order) => {
-      if (order) {
-        onSuccess({ ...order, message: "Order successfully created!" });
-        dispatch(removeCartItems({ emptyItems: [] }));
-        return order;
-      }
     });
-    return createdOrder;
+    if (order) {
+      onSuccess({ ...order, message: "Order successfully created!" });
+      dispatch(removeCartItems({ emptyItems: [] }));
+      return order;
+    }
   }
 );
 
 export const updateOrder = createAsyncThunk(
   "cart/createOrder",
-  async ({ orderInfo, onSuccess }, { getState, dispatch }) => {
-    const createdOrder = await requestPUT({
+  async ({ orderInfo, onSuccess }, { _, dispatch }) => {
+    const order = await requestPUT({
       url: `${server_url}/order/update/${orderInfo.orderId}/user/${orderInfo.clientId}`,
       data: orderInfo.items,
-    }).then((order) => {
-      if (order) {
-        onSuccess({ ...order, message: "Order successfully updated!" });
-        dispatch(removeCartItems({ emptyItems: [] }));
-        return order;
-      }
     });
-    return createdOrder;
+    if (order) {
+      onSuccess({ ...order, message: "Order successfully updated!" });
+      dispatch(removeCartItems({ emptyItems: [] }));
+      return order;
+    }
   }
 );
 
 export const recordPayment = createAsyncThunk(
   "cart/recordPayment",
-  async ({ payment, onSuccess }, { getState, dispatch }) => {
+  async ({ payment, onSuccess }, { _, _ }) => {
     await requestPOST({
       url: `${server_url}/order/payment`,
       data: payment,
